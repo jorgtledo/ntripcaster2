@@ -1,0 +1,9 @@
+services:
+  ntripcaster:
+    build: .
+    restart: always
+    ports:
+      - 2101:2101
+    volumes:
+      - ./conf:/usr/local/ntripcaster/conf
+      - ./logs:/usr/local/ntripcaster/logs
