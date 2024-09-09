@@ -14,10 +14,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: configure
+      working-directory: ./ntripcaster
       run: ./configure
     - name: make
+      working-directory: ./ntripcaster
       run: make
     - name: make check
+      working-directory: ./ntripcaster
       run: make check
     - name: make distcheck
+      working-directory: ./ntripcaster
       run: make distcheck
