@@ -1,0 +1,27 @@
+# Autotools artifacts & auxiliary scripts
+autom4te.cache/
+aclocal.m4
+config.*
+configure
+configure~
+Makefile
+Makefile.in
+stamp-*
+*.a
+*.la
+*.lo
+*.o
+*.Po
+compile
+depcomp
+install-sh
+missing
+
+# Other
+ntripdaemon
+/ntripcaster/conf/clientmounts.aut
+/ntripcaster/conf/groups.aut
+/ntripcaster/conf/ntripcaster.conf
+/ntripcaster/conf/sourcemounts.aut
+/ntripcaster/conf/sourcetable.dat
+/ntripcaster/conf/users.aut
