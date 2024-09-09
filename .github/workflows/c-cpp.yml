@@ -10,18 +10,19 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ntripcaster
 
     steps:
     - uses: actions/checkout@v4
+    - name: autoreconf
+      run: autoreconf -fiv
     - name: configure
-      working-directory: ./ntripcaster
       run: ./configure
     - name: make
-      working-directory: ./ntripcaster
       run: make
     - name: make check
-      working-directory: ./ntripcaster
       run: make check
     - name: make distcheck
-      working-directory: ./ntripcaster
       run: make distcheck
