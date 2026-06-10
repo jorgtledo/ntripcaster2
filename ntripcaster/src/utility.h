@@ -56,6 +56,7 @@ void kick_connection(void *conarg, void *reasonarg);
 void kick_everything();
 void kick_if_match (char *pattern);
 void kick_not_connected (connection_t *con, char *reason);
+void kick_not_connected_path (connection_t *con, const char *path, char *reason);
 void kick_silently (connection_t *con);
 connection_t *get_admin_with_id(int id);
 void close_connection(void *data);

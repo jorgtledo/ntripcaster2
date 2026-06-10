@@ -199,6 +199,7 @@ set_element admin_settings[] =
   { "admin_password", string_e, "The remote admin password", NULL },
   { "oper_password", string_e, "Operator Password", NULL },
   { "client_timeout", integer_e, "When to kick out clients", NULL },
+  { "read_timeout", integer_e, "When to kick a connection", NULL },
   { "max_clients", integer_e, "How many listeners to let in", NULL },
   { "max_clients_per_source", integer_e, "Max number of clients per source", NULL },
   { "max_ip_connections", integer_e, "Highest number of client connections per IP",  NULL },
@@ -241,6 +242,7 @@ setup_admin_settings ()
   admin_settings[x++].setting = &info.remote_admin_pass;
   admin_settings[x++].setting = &info.oper_pass;
   admin_settings[x++].setting = &info.client_timeout;
+  admin_settings[x++].setting = &info.read_timeout;
   admin_settings[x++].setting = &info.max_clients;
   admin_settings[x++].setting = &info.max_clients_per_source;
   admin_settings[x++].setting = &info.max_ip_connections;
@@ -331,6 +333,7 @@ set_element configfile_settings[] =
   { "encrypt_passwords", string_e, "Encrypt base parameter for password encryption", NULL },
 #endif /* USE_CRYPT */
   { "sourcetable_via_udp", integer_e, "Send Sourcetable via UDP (1) or default not (0)", NULL },
+  { "read_timeout", integer_e,     "Read timeout in seconds (between 10 and 120)",  NULL },
   { "hide_version", integer_e, "Hide version of caster (1) or default not (0)", NULL },
   { "language", string_e, "Default language for web interface (en, es, de)", NULL },
   { (char *) NULL, 0, (char *) NULL, NULL }
@@ -438,6 +441,7 @@ setup_config_file_settings()
   configfile_settings[x++].setting = &info.encrypt_passwords;
 #endif /* USE_CRYPT */
   configfile_settings[x++].setting = &info.sourcetable_via_udp;
+  configfile_settings[x++].setting = &info.read_timeout;
   configfile_settings[x++].setting = &info.hide_version;
   configfile_settings[x++].setting = &info.language;
 }

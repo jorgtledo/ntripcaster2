@@ -117,6 +117,7 @@
 #endif /* HAVE_TLS */
 
 #include "authenticate/basic.h"
+#include "authenticate/user.h"
 
 extern server_info_t info;
 static int running;
@@ -545,12 +546,38 @@ close_connection(void *data)
 }
 
 void
-kick_not_connected (connection_t *con, char *reason)
+kick_not_connected_path (connection_t *con, const char *path, char *reason)
 {
   char timebuf[BUFSIZE];
   char typebuf[10];
+  ntripcaster_user_t *u = NULL;
 
-  if (reason) write_log (LOG_DEFAULT, "Kicking %s %d [%s] [%s], connected for %s", type_of_str (con->type, typebuf), con->id, con_host (con), reason, nntripcaster_time (get_time () - con->connect_time, timebuf));
+  if (!con) {
+    return;
+  }
+
+  u = con_get_user(con);
+
+  if (reason) {
+    write_log (LOG_DEFAULT,
+      "Kicking %s %d [%s] [%s], connected for %s%s%s%s%s",
+      type_of_str (con->type, typebuf),
+      con->id,
+      con_host (con),
+      reason,
+      nntripcaster_time (get_time () - con->connect_time, timebuf),
+      u ? ", user " : "",
+      u ? u->name : "",
+      path ? ", path " : "",
+      path ? path : "");
+  }
+
+  if (u != NULL)
+  {
+    nfree(u->name);
+    nfree(u->pass);
+    nfree(u);
+  }
 
   free_con (con);
 
@@ -565,6 +592,12 @@ kick_not_connected (connection_t *con, char *reason)
   }
 
   nfree (con);
+}
+
+void
+kick_not_connected (connection_t *con, char *reason)
+{
+  kick_not_connected_path(con, NULL, reason);
 }
 
 void
