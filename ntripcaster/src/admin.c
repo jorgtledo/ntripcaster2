@@ -116,25 +116,25 @@ void admin_login(connection_t *con, ntrip_request_t *req) {
 #ifdef HAVE_LIBWRAP
   if (!sock_check_libwrap (con->sock, admin_e)) {
     write_http_code_page (con, 403, "Forbidden");
-    kick_not_connected(con, "Access denied (libwrap (admin connection))");
+    kick_not_connected_path(con, req->path, "Access denied (libwrap (admin connection))");
     thread_exit(0);
   }
 #endif
   if (!allowed(con, admin_e)) {
     write_http_code_page (con, 403, "Forbidden");
-    kick_not_connected(con, "Access denied (internal acl list (admin connection))");
+    kick_not_connected_path(con, req->path, "Access denied (internal acl list (admin connection))");
     thread_exit(0);
   }
 
   if (!authenticate_admin_request(con)) {
     sock_write_line (con->sock, "ERROR - Bad Password");
-    kick_not_connected (con, "Invalid admin password"); // was kick_connection. ajd
+    kick_not_connected_path (con, req->path, "Invalid admin password"); // was kick_connection. ajd
     thread_exit(0);
   }
 
   if (info.num_admins >= info.max_admins) {
     sock_write_line (con->sock, "ERROR - Too many connected admins");
-    kick_not_connected (con, "Too many connected admins"); // was kick_connection. ajd
+    kick_not_connected_path (con, req->path, "Too many connected admins"); // was kick_connection. ajd
     thread_exit(0);
   }
 

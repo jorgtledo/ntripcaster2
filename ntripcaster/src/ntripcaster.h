@@ -199,4 +199,9 @@
 #define LOG_USAGE 1
 #define LOG_ACCESS 2
 
+/* in microseconds */
+#define READ_RETRY_DELAY 400
+/* in seconds */
+#define DEFAULT_READ_TIMEOUT 16
+
 #endif

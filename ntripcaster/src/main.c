@@ -467,6 +467,7 @@ void setup_defaults() {
 
   info.throttle = (double)DEFAULT_THROTTLE;
   info.sleep_ratio = (double)DEFAULT_SLEEP_RATIO;
+  info.read_timeout = DEFAULT_READ_TIMEOUT;
   info.throttle_on = 0;
   info.bandwidth_usage = 0;
 

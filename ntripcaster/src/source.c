@@ -110,13 +110,8 @@
 #include "tls.h"
 #endif /* HAVE_TLS */
 
-/* in microseconds */
-#define READ_RETRY_DELAY 400
-#define READ_TIMEOUT 16000
-
 extern server_info_t info;
 const int source_read_sleep = READ_RETRY_DELAY * 1000; // in microseconds
-const int source_read_tries = READ_TIMEOUT / READ_RETRY_DELAY;
 
 void add_global_stats(source_t *source)
 {
@@ -159,31 +154,31 @@ void http_source_login(connection_t *con, ntrip_request_t *req) {
 #ifdef HAVE_LIBWRAP
   if (con->sock > 0 && !sock_check_libwrap (con->sock, source_e)) {
     ntrip_write_message(con, HTTP_FORBIDDEN, get_formatted_time(HEADER_TIME, time));
-    kick_not_connected (con, "Access denied (tcp wrappers)");
+    kick_not_connected_path (con, req->path, "Access denied (tcp wrappers)");
     return;
   }
 #endif
   if (!allowed (con, source_e)) {
     ntrip_write_message(con, HTTP_FORBIDDEN, get_formatted_time(HEADER_TIME, time));
-    kick_not_connected (con, "Access denied (internal acl list, source connection)");
+    kick_not_connected_path (con, req->path, "Access denied (internal acl list, source connection)");
     return;
   }
 
   if (strncasecmp(get_source_agent(con), "ntrip", 5) != 0) { // rtsp
     ntrip_write_message(con, HTTP_FORBIDDEN, get_formatted_time(HEADER_TIME, time));
-    kick_not_connected (con, "No NTRIP source");
+    kick_not_connected_path (con, req->path, "No NTRIP source");
     return;
   }
 
   if (authenticate_source_request(con, req) != 1) {
     ntrip_write_message(con, HTTP_SOURCE_NOT_AUTHORIZED, get_formatted_time(HEADER_TIME, time),req->path, "text/html");
-    kick_not_connected (con, "Unauthorized source");
+    kick_not_connected_path (con, req->path, "Unauthorized source");
     return;
   }
 
   if (is_empty_request(req)) {
     ntrip_write_message(con, HTTP_BAD_REQUEST, get_formatted_time(HEADER_TIME, time));
-    kick_not_connected(con, "Empty source request");
+    kick_not_connected_path(con, req->path, "Empty source request");
     return;
   }
 
@@ -513,6 +508,7 @@ add_chunk (connection_t *con)
   int len = -1;
   int tries = 0;
   int maxread = (int)(0.5 * SOURCE_READSIZE);
+  int source_read_tries = info.read_timeout * 1000 / READ_RETRY_DELAY;
 
   if (con->food.source->connected == SOURCE_KILLED) return;
 

@@ -232,6 +232,14 @@
             <pre><span class="conf">allow all 141.74.*.*</span></pre>
             Do not forget to add your own IP in this case! No other IPs will have access in this example.
         </li>
+
+        <li>Parameter <span class="conf">read_timeout</span> defines the time span after which the caster terminates
+            the connection if no data arrives. This parameter is set to 16 seconds by default, which in our experience
+            is a reasonable value. In order to set the parameter to 30 seconds, for example, add the following line to
+            file ntripcaster.conf:
+            <pre><span class="conf">read_timeout 30</span></pre>
+
+        </li>
     </ul>
 
     <h3 id="c6">6. Client authentication/authorization</h3>

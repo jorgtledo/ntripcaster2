@@ -469,6 +469,7 @@ typedef struct {
   int reverse_lookups;
   int force_servername;
   int mount_fallback;
+  int read_timeout;
 
   mythread_t *main_thread;
 
