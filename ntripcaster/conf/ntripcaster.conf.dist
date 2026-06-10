@@ -95,6 +95,12 @@ pidfilename /usr/local/ntripcaster/var/caster.pid
 
 templatedir /usr/local/ntripcaster/templates
 
+############################ Language ##########################################
+# Default language for the web admin interface.
+# Available: en (English), es (Español), de (Deutsch)
+
+language en
+
 ############################ Console mode #####################################
 # 0: stdin is to become a local admin console with log tailing (default)
 # 1: stdin is to become a local admin console

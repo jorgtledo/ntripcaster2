@@ -1,13 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!DOCTYPE html>
 <html>
   <head>
-    <title>504 Server Full</title>
+    <title>504 — Server Full</title>
+@INCLUDE style.html@
   </head>
-
   <body>
-    <h1>504 Server Full</h1>
-    The internet is full, please go away.<br>
-
-    <hr>
+    <div class="page-wrapper">
+      <div class="error-page">
+        <div class="error-code">504</div>
+        <h2 data-i18n="errors.server_full">Server Full</h2>
+        <p data-i18n="errors.server_full_desc">The server has reached maximum capacity. Please try again later.</p>
+        <a href="/" class="form-card"><span class="btn" data-i18n="errors.go_home">Go Home</span></a>
+      </div>
+    </div>
   </body>
 </html>

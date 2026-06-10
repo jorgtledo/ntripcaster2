@@ -5,12 +5,16 @@ COPY ntripcaster /ntripcaster
 WORKDIR /ntripcaster
 
 RUN apt-get update && \
-    apt-get install -y autoconf build-essential
+    apt-get install -y autoconf build-essential dos2unix
+
+RUN find . -type f \( -name "*.ac" -o -name "*.am" -o -name "*.in" -o -name "configure*" -o -name "Makefile*" -o -name "*.c" -o -name "*.h" -o -name "*.sh" -o -name "casterwatch" -o -name "ntripcaster" -o -name "*.conf*" -o -name "*.aut*" -o -name "*.dat*" \) -exec dos2unix {} + 2>/dev/null || true
 
 RUN autoreconf -fiv && ./configure && make && make install
 
 # Create a minimal image which only contains the built binaries
 FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends bash && rm -rf /var/lib/apt/lists/*
 
 # Note that the ./configure script installs into /usr/local/ntripcaster
 # by default.
