@@ -258,6 +258,7 @@ setup_admin_settings ()
 //  admin_settings[x++].setting = &info.consoledebuglevel;
   admin_settings[x++].setting = &info.url;
   admin_settings[x++].setting = &info.hide_version;
+  admin_settings[x++].setting = &info.language;
 //  admin_settings[x++].setting = &info.logfilename;
 //  admin_settings[x++].setting = &info.accessfilename;
 //  admin_settings[x++].setting = &info.usagefilename;
@@ -331,6 +332,7 @@ set_element configfile_settings[] =
 #endif /* USE_CRYPT */
   { "sourcetable_via_udp", integer_e, "Send Sourcetable via UDP (1) or default not (0)", NULL },
   { "hide_version", integer_e, "Hide version of caster (1) or default not (0)", NULL },
+  { "language", string_e, "Default language for web interface (en, es, de)", NULL },
   { (char *) NULL, 0, (char *) NULL, NULL }
 };
 
@@ -437,6 +439,7 @@ setup_config_file_settings()
 #endif /* USE_CRYPT */
   configfile_settings[x++].setting = &info.sourcetable_via_udp;
   configfile_settings[x++].setting = &info.hide_version;
+  configfile_settings[x++].setting = &info.language;
 }
 
 set_element *

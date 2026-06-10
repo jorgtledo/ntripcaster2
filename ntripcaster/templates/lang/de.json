@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "statistics": "Statistiken",
+    "sourcetable": "Quelltabelle",
+    "listeners": "Empfänger",
+    "sources": "Quellen",
+    "connections": "Verbindungen",
+    "admins": "Administratoren",
+    "settings": "Einstellungen",
+    "prometheus": "Prometheus"
+  },
+  "dashboard": {
+    "title": "Server-Dashboard",
+    "located_in": "Standort",
+    "managed_by": "Verwaltet von",
+    "running_since": "Läuft seit",
+    "quick_actions": "Schnellaktionen",
+    "server_performance": "Server-Leistungskennzahlen",
+    "available_streams": "Verfügbare GNSS-Streams",
+    "connected_clients": "Verbundene Clients",
+    "active_sources": "Aktive Datenquellen",
+    "manage_connections": "Verbindungen verwalten",
+    "admin_sessions": "Administrator-Sitzungen",
+    "server_config": "Serverkonfiguration",
+    "metrics_endpoint": "Metriken-Endpunkt"
+  },
+  "metrics": {
+    "port": "Port",
+    "uptime": "Betriebszeit",
+    "bandwidth": "Bandbreite",
+    "throttle": "Drosselung",
+    "max_listeners": "Max. Empfänger",
+    "max_sources": "Max. Quellen",
+    "per_source_limit": "Limit pro Quelle",
+    "total_read": "Gesamt gelesen",
+    "total_written": "Gesamt geschrieben",
+    "source_connects": "Quell-Verbindungen",
+    "client_connects": "Client-Verbindungen",
+    "avg_source_time": "Durchschn. Quellzeit",
+    "avg_source_transfer": "Durchschn. Quelltransfer"
+  },
+  "stats": {
+    "title": "Serverstatistiken",
+    "connected_admins": "Verbundene Admins",
+    "connected_sources": "Verbundene Quellen",
+    "location": "Standort",
+    "responsible": "Verantwortlicher"
+  },
+  "home": {
+    "welcome": "Willkommen",
+    "server_info": "Serverinformationen",
+    "name": "Name",
+    "operator": "Betreiber",
+    "protocol": "Protokoll",
+    "running_since": "Läuft seit"
+  },
+  "connection": {
+    "details": "Verbindungsdetails",
+    "id": "ID",
+    "socket": "Socket",
+    "connect_time": "Verbindungszeit",
+    "ip_address": "IP-Adresse"
+  },
+  "forms": {
+    "edit_setting": "Einstellung bearbeiten",
+    "current_value": "Aktueller Wert",
+    "new_value": "Neuer Wert",
+    "save_changes": "Änderungen speichern",
+    "add_alias": "Mountpoint-Alias hinzufügen",
+    "alias_name": "Alias-Name",
+    "real_mountpoint": "Echter Mountpoint",
+    "add": "Alias hinzufügen",
+    "delete_alias": "Mountpoint-Alias löschen",
+    "delete": "Alias löschen"
+  },
+  "errors": {
+    "bad_request": "Ungültige Anfrage",
+    "bad_request_desc": "Der Server konnte Ihre Anfrage nicht verstehen. Bitte überprüfen und erneut versuchen.",
+    "forbidden": "Zugriff verweigert",
+    "forbidden_desc": "Sie haben keine Berechtigung, auf diese Ressource zuzugreifen.",
+    "not_found": "Nicht gefunden",
+    "not_found_desc": "Der angeforderte Stream oder die Ressource wurde auf diesem Server nicht gefunden.",
+    "server_full": "Server voll",
+    "server_full_desc": "Der Server hat seine maximale Kapazität erreicht. Bitte versuchen Sie es später erneut.",
+    "invalid_request": "Ungültige Anfrage",
+    "invalid_request_desc": "Die von Ihrer Anwendung gesendete Anfrage konnte nicht verarbeitet werden.",
+    "banned": "Gesperrt",
+    "banned_desc": "Ihr Zugang zu diesem Server wurde widerrufen.",
+    "unauthorized": "Nicht autorisiert",
+    "unauthorized_desc": "Der Server erkennt Ihre Berechtigungen nicht. Bitte überprüfen Sie Ihre Anmeldedaten und versuchen Sie es erneut.",
+    "go_home": "Zur Startseite"
+  },
+  "status": {
+    "online": "Online",
+    "active": "Aktiv"
+  },
+  "general": {
+    "back_to_dashboard": "Zurück zum Dashboard"
+  }
+}

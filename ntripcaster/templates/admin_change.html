@@ -1,16 +1,16 @@
 <div class="card form-card">
   <div class="card-header">
-    <h3>Edit Setting</h3>
+    <h3 data-i18n="forms.edit_setting">Edit Setting</h3>
     <span class="badge">@varname@</span>
   </div>
   <form action="/admin" method="get">
-    <label>Current value</label>
+    <label data-i18n="forms.current_value">Current value</label>
     <input type="text" value="@currentvalue@" disabled>
-    <label>New value</label>
+    <label data-i18n="forms.new_value">New value</label>
     <input type="text" name="argument1" placeholder="Enter new value" required>
     <input type="hidden" name="mode" value="set">
     <input type="hidden" name="argument" value="@varname@">
-    <button type="submit" class="btn">Save Changes</button>
+    <button type="submit" class="btn" data-i18n="forms.save_changes">Save Changes</button>
   </form>
 </div>
 

@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "statistics": "Estadísticas",
+    "sourcetable": "Tabla de fuentes",
+    "listeners": "Oyentes",
+    "sources": "Fuentes",
+    "connections": "Conexiones",
+    "admins": "Administradores",
+    "settings": "Configuración",
+    "prometheus": "Prometheus"
+  },
+  "dashboard": {
+    "title": "Panel del Servidor",
+    "located_in": "Ubicado en",
+    "managed_by": "Administrado por",
+    "running_since": "En ejecución desde",
+    "quick_actions": "Acciones Rápidas",
+    "server_performance": "Métricas de rendimiento",
+    "available_streams": "Streams GNSS disponibles",
+    "connected_clients": "Clientes conectados",
+    "active_sources": "Fuentes activas",
+    "manage_connections": "Gestionar conexiones",
+    "admin_sessions": "Sesiones de administrador",
+    "server_config": "Configuración del servidor",
+    "metrics_endpoint": "Endpoint de métricas"
+  },
+  "metrics": {
+    "port": "Puerto",
+    "uptime": "Tiempo activo",
+    "bandwidth": "Ancho de banda",
+    "throttle": "Límite",
+    "max_listeners": "Máx. Oyentes",
+    "max_sources": "Máx. Fuentes",
+    "per_source_limit": "Límite por Fuente",
+    "total_read": "Total Leído",
+    "total_written": "Total Escrito",
+    "source_connects": "Conexiones de Fuentes",
+    "client_connects": "Conexiones de Clientes",
+    "avg_source_time": "Tiempo Prom. Fuente",
+    "avg_source_transfer": "Transfer. Prom. Fuente"
+  },
+  "stats": {
+    "title": "Estadísticas del Servidor",
+    "connected_admins": "Admins Conectados",
+    "connected_sources": "Fuentes Conectadas",
+    "location": "Ubicación",
+    "responsible": "Responsable"
+  },
+  "home": {
+    "welcome": "Bienvenido",
+    "server_info": "Información del Servidor",
+    "name": "Nombre",
+    "operator": "Operador",
+    "protocol": "Protocolo",
+    "running_since": "En ejecución desde"
+  },
+  "connection": {
+    "details": "Detalles de Conexión",
+    "id": "ID",
+    "socket": "Socket",
+    "connect_time": "Tiempo de Conexión",
+    "ip_address": "Dirección IP"
+  },
+  "forms": {
+    "edit_setting": "Editar Configuración",
+    "current_value": "Valor actual",
+    "new_value": "Nuevo valor",
+    "save_changes": "Guardar Cambios",
+    "add_alias": "Agregar Alias de Punto de Montaje",
+    "alias_name": "Nombre del Alias",
+    "real_mountpoint": "Punto de Montaje Real",
+    "add": "Agregar Alias",
+    "delete_alias": "Eliminar Alias de Punto de Montaje",
+    "delete": "Eliminar Alias"
+  },
+  "errors": {
+    "bad_request": "Solicitud Incorrecta",
+    "bad_request_desc": "El servidor no pudo entender su solicitud. Por favor, verifique e intente de nuevo.",
+    "forbidden": "Acceso Denegado",
+    "forbidden_desc": "No tiene permiso para acceder a este recurso.",
+    "not_found": "No Encontrado",
+    "not_found_desc": "El stream o recurso solicitado no fue encontrado en este servidor.",
+    "server_full": "Servidor Lleno",
+    "server_full_desc": "El servidor ha alcanzado su capacidad máxima. Por favor, intente más tarde.",
+    "invalid_request": "Solicitud Inválida",
+    "invalid_request_desc": "La solicitud enviada por su aplicación no pudo ser procesada.",
+    "banned": "Baneado",
+    "banned_desc": "Su acceso a este servidor ha sido revocado.",
+    "unauthorized": "No Autorizado",
+    "unauthorized_desc": "El servidor no reconoce sus privilegios. Por favor, verifique sus credenciales e intente de nuevo.",
+    "go_home": "Ir al Inicio"
+  },
+  "status": {
+    "online": "En línea",
+    "active": "Activo"
+  },
+  "general": {
+    "back_to_dashboard": "Volver al Panel"
+  }
+}

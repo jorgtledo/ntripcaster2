@@ -171,6 +171,7 @@ http_variable_t http_variables[] =
   { "CLIENT_TIMEOUT", integer_e, &info.client_timeout },
   { "UPTIME", function_e, (void *)ntripcaster_uptime },
   { "STARTTIME", function_e, (void *)ntripcaster_starttime },
+  { "LANGUAGE", string_e, &info.language },
   { (char *) NULL, 0, NULL }
 };
 

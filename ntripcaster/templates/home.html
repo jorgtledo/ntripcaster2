@@ -15,40 +15,48 @@
       </a>
       <div class="navbar-status">
         <span class="pulse"></span>
-        Online
+        <span data-i18n="status.online">Online</span>
+        <div class="lang-selector">
+          <button class="lang-btn"><span class="flag">🇬🇧</span><span class="lang-code">EN</span></button>
+          <div class="lang-dropdown">
+            <a class="lang-option" data-lang="en"><span class="flag">🇬🇧</span>English</a>
+            <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+            <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+          </div>
+        </div>
       </div>
     </nav>
 
     <div class="page-wrapper">
       <div class="page-header">
-        <h1>Welcome</h1>
+        <h1 data-i18n="home.welcome">Welcome</h1>
         <p>NTRIP @NTRIPPROTOCOLVERSION@ Streaming Server</p>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <h3>Server Information</h3>
-          <span class="badge badge-success">Active</span>
+          <h3 data-i18n="home.server_info">Server Information</h3>
+          <span class="badge badge-success" data-i18n="status.active">Active</span>
         </div>
         <table class="data-table">
           <tr>
-            <td><strong>Name</strong></td>
+            <td><strong data-i18n="home.name">Name</strong></td>
             <td>@NAME@</td>
           </tr>
           <tr>
-            <td><strong>Operator</strong></td>
+            <td><strong data-i18n="home.operator">Operator</strong></td>
             <td><a href="@OPERATORURL@">@OPERATOR@</a></td>
           </tr>
           <tr>
-            <td><strong>Protocol</strong></td>
+            <td><strong data-i18n="home.protocol">Protocol</strong></td>
             <td>NTRIP @NTRIPPROTOCOLVERSION@</td>
           </tr>
           <tr>
-            <td><strong>Uptime</strong></td>
+            <td><strong data-i18n="metrics.uptime">Uptime</strong></td>
             <td>@UPTIME@</td>
           </tr>
           <tr>
-            <td><strong>Running since</strong></td>
+            <td><strong data-i18n="home.running_since">Running since</strong></td>
             <td>@STARTTIME@</td>
           </tr>
         </table>

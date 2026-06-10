@@ -566,4 +566,168 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* ===== LANGUAGE SELECTOR ===== */
+      .lang-selector {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+      .lang-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 6px;
+        padding: 0.35rem 0.7rem;
+        color: #e2e8f0;
+        font-size: 0.78rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .lang-btn:hover {
+        background: rgba(255,255,255,0.15);
+        border-color: rgba(255,255,255,0.25);
+      }
+      .lang-btn .flag {
+        font-size: 1rem;
+        line-height: 1;
+      }
+      .lang-dropdown {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        right: 0;
+        background: var(--surface);
+        border: 1px solid var(--surface-border);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        overflow: hidden;
+        z-index: 200;
+        min-width: 140px;
+      }
+      .lang-dropdown.open {
+        display: block;
+      }
+      .lang-option {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.82rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: background 0.15s;
+        text-decoration: none;
+      }
+      .lang-option:hover {
+        background: var(--accent-bg);
+      }
+      .lang-option.active {
+        background: var(--accent-bg);
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .lang-option .flag {
+        font-size: 1.1rem;
+      }
     </style>
+    <script>
+    /* ===== NtripCaster i18n System ===== */
+    (function() {
+      const TRANSLATIONS = {
+        en: {"nav":{"home":"Home","statistics":"Statistics","sourcetable":"Sourcetable","listeners":"Listeners","sources":"Sources","connections":"Connections","admins":"Admins","settings":"Settings","prometheus":"Prometheus"},"dashboard":{"title":"Server Dashboard","located_in":"Located in","managed_by":"Managed by","running_since":"Running since","quick_actions":"Quick Actions","server_performance":"Server performance metrics","available_streams":"Available GNSS streams","connected_clients":"Connected clients","active_sources":"Active data sources","manage_connections":"Manage all connections","admin_sessions":"Administrator sessions","server_config":"Server configuration","metrics_endpoint":"Metrics endpoint"},"metrics":{"port":"Port","uptime":"Uptime","bandwidth":"Bandwidth","throttle":"Throttle","max_listeners":"Max Listeners","max_sources":"Max Sources","per_source_limit":"Per Source Limit","total_read":"Total Read","total_written":"Total Written","source_connects":"Source Connects","client_connects":"Client Connects","avg_source_time":"Avg Source Time","avg_source_transfer":"Avg Source Transfer"},"stats":{"title":"Server Statistics","connected_admins":"Connected Admins","connected_sources":"Connected Sources","location":"Location","responsible":"Responsible"},"home":{"welcome":"Welcome","server_info":"Server Information","name":"Name","operator":"Operator","protocol":"Protocol","running_since":"Running since"},"connection":{"details":"Connection Details","id":"ID","socket":"Socket","connect_time":"Connect Time","ip_address":"IP Address"},"forms":{"edit_setting":"Edit Setting","current_value":"Current value","new_value":"New value","save_changes":"Save Changes","add_alias":"Add Mountpoint Alias","alias_name":"Alias Name","real_mountpoint":"Real Mountpoint","add":"Add Alias","delete_alias":"Delete Mountpoint Alias","delete":"Delete Alias"},"errors":{"bad_request":"Bad Request","bad_request_desc":"The server could not understand your request. Please check and try again.","forbidden":"Access Denied","forbidden_desc":"You don't have permission to access this resource.","not_found":"Not Found","not_found_desc":"The requested stream or resource was not found on this server.","server_full":"Server Full","server_full_desc":"The server has reached maximum capacity. Please try again later.","invalid_request":"Invalid Request","invalid_request_desc":"The request sent by your application could not be processed.","banned":"Banned","banned_desc":"Your access to this server has been revoked.","unauthorized":"Unauthorized","unauthorized_desc":"The server does not recognize your privileges. Please check your credentials and try again.","go_home":"Go Home"},"status":{"online":"Online","active":"Active"},"general":{"back_to_dashboard":"Back to Dashboard"}},
+        es: {"nav":{"home":"Inicio","statistics":"Estadísticas","sourcetable":"Tabla de fuentes","listeners":"Oyentes","sources":"Fuentes","connections":"Conexiones","admins":"Administradores","settings":"Configuración","prometheus":"Prometheus"},"dashboard":{"title":"Panel del Servidor","located_in":"Ubicado en","managed_by":"Administrado por","running_since":"En ejecución desde","quick_actions":"Acciones Rápidas","server_performance":"Métricas de rendimiento","available_streams":"Streams GNSS disponibles","connected_clients":"Clientes conectados","active_sources":"Fuentes activas","manage_connections":"Gestionar conexiones","admin_sessions":"Sesiones de administrador","server_config":"Configuración del servidor","metrics_endpoint":"Endpoint de métricas"},"metrics":{"port":"Puerto","uptime":"Tiempo activo","bandwidth":"Ancho de banda","throttle":"Límite","max_listeners":"Máx. Oyentes","max_sources":"Máx. Fuentes","per_source_limit":"Límite por Fuente","total_read":"Total Leído","total_written":"Total Escrito","source_connects":"Conexiones de Fuentes","client_connects":"Conexiones de Clientes","avg_source_time":"Tiempo Prom. Fuente","avg_source_transfer":"Transfer. Prom. Fuente"},"stats":{"title":"Estadísticas del Servidor","connected_admins":"Admins Conectados","connected_sources":"Fuentes Conectadas","location":"Ubicación","responsible":"Responsable"},"home":{"welcome":"Bienvenido","server_info":"Información del Servidor","name":"Nombre","operator":"Operador","protocol":"Protocolo","running_since":"En ejecución desde"},"connection":{"details":"Detalles de Conexión","id":"ID","socket":"Socket","connect_time":"Tiempo de Conexión","ip_address":"Dirección IP"},"forms":{"edit_setting":"Editar Configuración","current_value":"Valor actual","new_value":"Nuevo valor","save_changes":"Guardar Cambios","add_alias":"Agregar Alias de Punto de Montaje","alias_name":"Nombre del Alias","real_mountpoint":"Punto de Montaje Real","add":"Agregar Alias","delete_alias":"Eliminar Alias de Punto de Montaje","delete":"Eliminar Alias"},"errors":{"bad_request":"Solicitud Incorrecta","bad_request_desc":"El servidor no pudo entender su solicitud. Por favor, verifique e intente de nuevo.","forbidden":"Acceso Denegado","forbidden_desc":"No tiene permiso para acceder a este recurso.","not_found":"No Encontrado","not_found_desc":"El stream o recurso solicitado no fue encontrado en este servidor.","server_full":"Servidor Lleno","server_full_desc":"El servidor ha alcanzado su capacidad máxima. Por favor, intente más tarde.","invalid_request":"Solicitud Inválida","invalid_request_desc":"La solicitud enviada por su aplicación no pudo ser procesada.","banned":"Baneado","banned_desc":"Su acceso a este servidor ha sido revocado.","unauthorized":"No Autorizado","unauthorized_desc":"El servidor no reconoce sus privilegios. Por favor, verifique sus credenciales e intente de nuevo.","go_home":"Ir al Inicio"},"status":{"online":"En línea","active":"Activo"},"general":{"back_to_dashboard":"Volver al Panel"}},
+        de: {"nav":{"home":"Startseite","statistics":"Statistiken","sourcetable":"Quelltabelle","listeners":"Empfänger","sources":"Quellen","connections":"Verbindungen","admins":"Administratoren","settings":"Einstellungen","prometheus":"Prometheus"},"dashboard":{"title":"Server-Dashboard","located_in":"Standort","managed_by":"Verwaltet von","running_since":"Läuft seit","quick_actions":"Schnellaktionen","server_performance":"Server-Leistungskennzahlen","available_streams":"Verfügbare GNSS-Streams","connected_clients":"Verbundene Clients","active_sources":"Aktive Datenquellen","manage_connections":"Verbindungen verwalten","admin_sessions":"Administrator-Sitzungen","server_config":"Serverkonfiguration","metrics_endpoint":"Metriken-Endpunkt"},"metrics":{"port":"Port","uptime":"Betriebszeit","bandwidth":"Bandbreite","throttle":"Drosselung","max_listeners":"Max. Empfänger","max_sources":"Max. Quellen","per_source_limit":"Limit pro Quelle","total_read":"Gesamt gelesen","total_written":"Gesamt geschrieben","source_connects":"Quell-Verbindungen","client_connects":"Client-Verbindungen","avg_source_time":"Durchschn. Quellzeit","avg_source_transfer":"Durchschn. Quelltransfer"},"stats":{"title":"Serverstatistiken","connected_admins":"Verbundene Admins","connected_sources":"Verbundene Quellen","location":"Standort","responsible":"Verantwortlicher"},"home":{"welcome":"Willkommen","server_info":"Serverinformationen","name":"Name","operator":"Betreiber","protocol":"Protokoll","running_since":"Läuft seit"},"connection":{"details":"Verbindungsdetails","id":"ID","socket":"Socket","connect_time":"Verbindungszeit","ip_address":"IP-Adresse"},"forms":{"edit_setting":"Einstellung bearbeiten","current_value":"Aktueller Wert","new_value":"Neuer Wert","save_changes":"Änderungen speichern","add_alias":"Mountpoint-Alias hinzufügen","alias_name":"Alias-Name","real_mountpoint":"Echter Mountpoint","add":"Alias hinzufügen","delete_alias":"Mountpoint-Alias löschen","delete":"Alias löschen"},"errors":{"bad_request":"Ungültige Anfrage","bad_request_desc":"Der Server konnte Ihre Anfrage nicht verstehen. Bitte überprüfen und erneut versuchen.","forbidden":"Zugriff verweigert","forbidden_desc":"Sie haben keine Berechtigung, auf diese Ressource zuzugreifen.","not_found":"Nicht gefunden","not_found_desc":"Der angeforderte Stream oder die Ressource wurde auf diesem Server nicht gefunden.","server_full":"Server voll","server_full_desc":"Der Server hat seine maximale Kapazität erreicht. Bitte versuchen Sie es später erneut.","invalid_request":"Ungültige Anfrage","invalid_request_desc":"Die von Ihrer Anwendung gesendete Anfrage konnte nicht verarbeitet werden.","banned":"Gesperrt","banned_desc":"Ihr Zugang zu diesem Server wurde widerrufen.","unauthorized":"Nicht autorisiert","unauthorized_desc":"Der Server erkennt Ihre Berechtigungen nicht. Bitte überprüfen Sie Ihre Anmeldedaten und versuchen Sie es erneut.","go_home":"Zur Startseite"},"status":{"online":"Online","active":"Aktiv"},"general":{"back_to_dashboard":"Zurück zum Dashboard"}}
+      };
+
+      const FLAGS = { en: '🇬🇧', es: '🇪🇸', de: '🇩🇪' };
+      const LANG_NAMES = { en: 'English', es: 'Español', de: 'Deutsch' };
+      const DEFAULT_LANG = '@LANGUAGE@' || 'en';
+
+      function getLanguage() {
+        return localStorage.getItem('ntripcaster_lang') || DEFAULT_LANG;
+      }
+
+      function setLanguage(lang) {
+        localStorage.setItem('ntripcaster_lang', lang);
+        applyTranslations(lang);
+        updateSelector(lang);
+      }
+
+      function resolve(obj, path) {
+        return path.split('.').reduce(function(o, k) { return o && o[k]; }, obj);
+      }
+
+      function applyTranslations(lang) {
+        var t = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+        var elements = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < elements.length; i++) {
+          var el = elements[i];
+          var key = el.getAttribute('data-i18n');
+          var val = resolve(t, key);
+          if (val) {
+            if (el.tagName === 'INPUT' && el.type !== 'hidden') {
+              if (el.hasAttribute('placeholder')) el.placeholder = val;
+              else el.value = val;
+            } else {
+              el.textContent = val;
+            }
+          }
+        }
+        document.documentElement.lang = lang;
+      }
+
+      function updateSelector(lang) {
+        var btn = document.querySelector('.lang-btn');
+        if (btn) {
+          btn.querySelector('.flag').textContent = FLAGS[lang];
+          btn.querySelector('.lang-code').textContent = lang.toUpperCase();
+        }
+        var options = document.querySelectorAll('.lang-option');
+        for (var i = 0; i < options.length; i++) {
+          options[i].classList.toggle('active', options[i].getAttribute('data-lang') === lang);
+        }
+      }
+
+      function initLangSelector() {
+        var container = document.querySelector('.lang-selector');
+        if (!container) return;
+
+        var btn = container.querySelector('.lang-btn');
+        var dropdown = container.querySelector('.lang-dropdown');
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          dropdown.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function() {
+          dropdown.classList.remove('open');
+        });
+
+        var options = dropdown.querySelectorAll('.lang-option');
+        for (var i = 0; i < options.length; i++) {
+          options[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            setLanguage(this.getAttribute('data-lang'));
+            dropdown.classList.remove('open');
+          });
+        }
+      }
+
+      // Initialize on DOM ready
+      document.addEventListener('DOMContentLoaded', function() {
+        var lang = getLanguage();
+        applyTranslations(lang);
+        updateSelector(lang);
+        initLangSelector();
+      });
+
+      // Expose for external use
+      window.NtripI18n = { setLanguage: setLanguage, getLanguage: getLanguage, TRANSLATIONS: TRANSLATIONS };
+    })();
+    </script>

@@ -13,21 +13,31 @@
           <div class="brand-sub">NtripCaster Admin</div>
         </div>
       </a>
+      <div class="navbar-status">
+        <div class="lang-selector">
+          <button class="lang-btn"><span class="flag">🇬🇧</span><span class="lang-code">EN</span></button>
+          <div class="lang-dropdown">
+            <a class="lang-option" data-lang="en"><span class="flag">🇬🇧</span>English</a>
+            <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+            <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+          </div>
+        </div>
+      </div>
     </nav>
     <div class="page-wrapper">
       <div class="card form-card">
         <div class="card-header">
-          <h3>Delete Mountpoint Alias</h3>
+          <h3 data-i18n="forms.delete_alias">Delete Mountpoint Alias</h3>
         </div>
         <form action="/admin" method="get">
           <input type="hidden" name="mode" value="alias">
           <input type="hidden" name="argument" value="del">
-          <label>Alias Name</label>
+          <label data-i18n="forms.alias_name">Alias Name</label>
           <input type="text" name="argument1" placeholder="e.g. /myalias" required>
-          <button type="submit" class="btn btn-danger">Delete Alias</button>
+          <button type="submit" class="btn btn-danger" data-i18n="forms.delete">Delete Alias</button>
         </form>
       </div>
-      <a href="/admin" class="back-link">&larr; Back to Dashboard</a>
+      <a href="/admin" class="back-link">&larr; <span data-i18n="general.back_to_dashboard">Back to Dashboard</span></a>
     </div>
   </body>
 </html>

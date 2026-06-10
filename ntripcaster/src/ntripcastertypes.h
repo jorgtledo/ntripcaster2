@@ -543,6 +543,7 @@ typedef struct {
   int allow_http_admin;
   int sourcetable_via_udp; /* send sourcetable via UDP, IMPORTANT: can be used for DDOS UDP amplification */
   int hide_version;
+  char *language; /* default language for web interface (en, es, de) */
 
   /* Statistics */
   statistics_t hourly_stats;

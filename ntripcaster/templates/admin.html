@@ -15,111 +15,122 @@
       </a>
       <div class="navbar-status">
         <span class="pulse"></span>
-        Online
+        <span data-i18n="status.online">Online</span>
+        <div class="lang-selector">
+          <button class="lang-btn"><span class="flag">🇬🇧</span><span class="lang-code">EN</span></button>
+          <div class="lang-dropdown">
+            <a class="lang-option" data-lang="en"><span class="flag">🇬🇧</span>English</a>
+            <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+            <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+          </div>
+        </div>
       </div>
     </nav>
 
     <div class="page-wrapper">
       <div class="page-header">
-        <h1>Server Dashboard</h1>
-        <p>Located in <a href="@URL@">@LOCATION@</a> &middot; Managed by @RPEMAIL@ &middot; Running since @STARTTIME@</p>
+        <h1 data-i18n="dashboard.title">Server Dashboard</h1>
+        <p><span data-i18n="dashboard.located_in">Located in</span> <a href="@URL@">@LOCATION@</a> &middot; <span data-i18n="dashboard.managed_by">Managed by</span> @RPEMAIL@ &middot; <span data-i18n="dashboard.running_since">Running since</span> @STARTTIME@</p>
       </div>
 
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-label">Port</div>
+          <div class="metric-label" data-i18n="metrics.port">Port</div>
           <div class="metric-value">@PORT@</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Uptime</div>
+          <div class="metric-label" data-i18n="metrics.uptime">Uptime</div>
           <div class="metric-value">@UPTIME@</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Bandwidth</div>
+          <div class="metric-label" data-i18n="metrics.bandwidth">Bandwidth</div>
           <div class="metric-value">@BANDWIDTH@<span class="metric-unit">KB/s</span></div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Throttle</div>
+          <div class="metric-label" data-i18n="metrics.throttle">Throttle</div>
           <div class="metric-value">@THROTTLE@<span class="metric-unit">KB/s</span></div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Max Listeners</div>
+          <div class="metric-label" data-i18n="metrics.max_listeners">Max Listeners</div>
           <div class="metric-value">@MAXLISTENERS@</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Max Sources</div>
+          <div class="metric-label" data-i18n="metrics.max_sources">Max Sources</div>
           <div class="metric-value">@MAXSOURCES@</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Per Source Limit</div>
+          <div class="metric-label" data-i18n="metrics.per_source_limit">Per Source Limit</div>
           <div class="metric-value">@MAXLISTENERSPERSOURCE@</div>
         </div>
       </div>
 
       <div class="card">
         <div class="card-header">
-          <h3>Quick Actions</h3>
+          <h3 data-i18n="dashboard.quick_actions">Quick Actions</h3>
         </div>
         <div class="nav-grid">
           <a href="/admin?mode=stats" class="nav-card">
             <div class="nav-icon">&#128200;</div>
             <div class="nav-content">
-              <h4>Statistics</h4>
-              <p>Server performance metrics</p>
+              <h4 data-i18n="nav.statistics">Statistics</h4>
+              <p data-i18n="dashboard.server_performance">Server performance metrics</p>
             </div>
           </a>
           <a href="/admin?mode=sourcetable" class="nav-card">
             <div class="nav-icon">&#128225;</div>
             <div class="nav-content">
-              <h4>Sourcetable</h4>
-              <p>Available GNSS streams</p>
+              <h4 data-i18n="nav.sourcetable">Sourcetable</h4>
+              <p data-i18n="dashboard.available_streams">Available GNSS streams</p>
             </div>
           </a>
           <a href="/admin?mode=listeners" class="nav-card">
             <div class="nav-icon">&#128266;</div>
             <div class="nav-content">
-              <h4>Listeners</h4>
-              <p>Connected clients</p>
+              <h4 data-i18n="nav.listeners">Listeners</h4>
+              <p data-i18n="dashboard.connected_clients">Connected clients</p>
             </div>
           </a>
           <a href="/admin?mode=sources" class="nav-card">
             <div class="nav-icon">&#128225;</div>
             <div class="nav-content">
-              <h4>Sources</h4>
-              <p>Active data sources</p>
+              <h4 data-i18n="nav.sources">Sources</h4>
+              <p data-i18n="dashboard.active_sources">Active data sources</p>
             </div>
           </a>
           <a href="/admin?mode=connections" class="nav-card">
             <div class="nav-icon">&#128279;</div>
             <div class="nav-content">
-              <h4>Connections</h4>
-              <p>Manage all connections</p>
+              <h4 data-i18n="nav.connections">Connections</h4>
+              <p data-i18n="dashboard.manage_connections">Manage all connections</p>
             </div>
           </a>
           <a href="/admin?mode=admins" class="nav-card">
             <div class="nav-icon">&#128100;</div>
             <div class="nav-content">
-              <h4>Admins</h4>
-              <p>Administrator sessions</p>
+              <h4 data-i18n="nav.admins">Admins</h4>
+              <p data-i18n="dashboard.admin_sessions">Administrator sessions</p>
             </div>
           </a>
           <a href="/admin?mode=set" class="nav-card">
             <div class="nav-icon">&#9881;</div>
             <div class="nav-content">
-              <h4>Settings</h4>
-              <p>Server configuration</p>
+              <h4 data-i18n="nav.settings">Settings</h4>
+              <p data-i18n="dashboard.server_config">Server configuration</p>
             </div>
           </a>
           <a href="/admin?mode=stats&argument=prom&nohtml=1" class="nav-card">
             <div class="nav-icon">&#128202;</div>
             <div class="nav-content">
-              <h4>Prometheus</h4>
-              <p>Metrics endpoint</p>
+              <h4 data-i18n="nav.prometheus">Prometheus</h4>
+              <p data-i18n="dashboard.metrics_endpoint">Metrics endpoint</p>
             </div>
           </a>
         </div>
       </div>
 
+      <footer class="page-footer">
+        <span>NtripCaster @VERSION@</span>
+      </footer>
     </div>
   </body>
 </html>

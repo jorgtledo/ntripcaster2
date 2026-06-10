@@ -5,11 +5,14 @@ AUTOMAKE_OPTIONS = foreign
 all: 
 
 templatesdir = $(NTRIPCASTER_TEMPLATEDIR_INST)
-templates_DATA =	306.html 400.html 403.html 404.html 504.html ban.html		\
+templates_DATA =	306.html 400.html 401.html 403.html 404.html 504.html ban.html		\
 			style.html					        \
 			statistics.html admin_describe.html admin.html		\
 			alias_add.html alias_del.html				\
 			header.html footer.html admin_change.html home.html	\
 			robots.txt
 
-EXTRA_DIST = $(templates_DATA)
+langdir = $(NTRIPCASTER_TEMPLATEDIR_INST)/lang
+lang_DATA = lang/en.json lang/es.json lang/de.json
+
+EXTRA_DIST = $(templates_DATA) $(lang_DATA)
