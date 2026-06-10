@@ -66,6 +66,7 @@ void display_admin_page (connection_t *con, ntrip_request_t *req);
 void http_display_home_page (connection_t *con);
 void http_get_robots (connection_t *con);
 void http_get_security (connection_t *con);
+void http_get_logo (connection_t *con);
 void write_http_header (sock_t sockfd, int error, const char *msg);
 http_parsable_t *find_http_element (char *name, http_parsable_t *el);
 int print_http_variable (vartree_t *request_vars, const char *name, connection_t *clicon, int fd);

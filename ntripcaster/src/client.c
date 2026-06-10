@@ -134,6 +134,7 @@ void http_client_login(connection_t *con, ntrip_request_t *req) {
   const char *var;
   char time[50];
   alias_t *wasalias = 0;
+  int is_admin_path;
 
   xa_debug(3, "http client login...");
 
@@ -209,7 +210,9 @@ void http_client_login(connection_t *con, ntrip_request_t *req) {
     return;
   }
 
-  if (!authenticate_user_request (con, req, client_e)) {
+  is_admin_path = (ntripcaster_strncmp(req->path, "/admin", 6) == 0);
+
+  if (!is_admin_path && !authenticate_user_request (con, req, client_e)) {
     ntrip_write_message(con, HTTP_GET_NOT_AUTHORIZED, get_formatted_time(HEADER_TIME, time), req->path, "text/html");
     kick_not_connected_path (con, req->path, "Not authorized");
     return;
@@ -228,6 +231,10 @@ void http_client_login(connection_t *con, ntrip_request_t *req) {
       http_get_security (con);
       kick_not_connected_path (con, req->path, "Security.txt delivered");
       return;
+    } else if ((ntripcaster_strncmp(req->path, "/logo.png", 9) == 0)) {
+      http_get_logo (con);
+      kick_not_connected_path (con, req->path, "Logo delivered");
+      return;
     } else if ((ntripcaster_strncmp(req->path, "/admin", 6) == 0)) {
 /*      char secfile[BUFSIZE];
 
@@ -239,8 +246,9 @@ void http_client_login(connection_t *con, ntrip_request_t *req) {
 */
 
       if (http_admin_command (con, req)) {
-        xa_debug (2, "DEBUG: kicking %s, executed admin command", con_host (con));
+        write_log (LOG_DEFAULT, "DEBUG LOGIN: http_admin_command returned 1, kicking");
         kick_not_connected_path (con, req->path, "Executed admin command");
+        write_log (LOG_DEFAULT, "DEBUG LOGIN: kick done, returning from http_client_login");
       } else
         kick_not_connected_path (con, req->path, "Failed to execute admin command");
       return;

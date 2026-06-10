@@ -264,6 +264,140 @@ write_401 (connection_t *con, char *realm)
   sock_write_line (con->sock, "</body></html>");
 }
 
+static int
+cookie_value (const char *cookie_header, const char *name, char *out, size_t outlen)
+{
+  const char *ptr;
+  size_t namelen;
+
+  if (!cookie_header || !name || !out || outlen == 0)
+    return 0;
+
+  namelen = strlen(name);
+  ptr = cookie_header;
+
+  while (*ptr)
+  {
+    size_t i = 0;
+    const char *start;
+
+    while (*ptr == ' ' || *ptr == ';')
+      ptr++;
+
+    if (!*ptr)
+      break;
+
+    if (ntripcaster_strncmp(ptr, name, namelen) == 0 && ptr[namelen] == '=')
+    {
+      ptr += namelen + 1;
+      while (ptr[i] && ptr[i] != ';' && i < outlen - 1)
+      {
+        out[i] = ptr[i];
+        i++;
+      }
+      out[i] = '\0';
+      return i > 0;
+    }
+
+    start = strchr(ptr, ';');
+    if (!start)
+      break;
+    ptr = start + 1;
+  }
+
+  return 0;
+}
+
+static int
+is_base64_cookie_token (const char *value)
+{
+  const unsigned char *ptr = (const unsigned char *)value;
+
+  if (!value || !*value)
+    return 0;
+
+  while (*ptr)
+  {
+    if (!(isalnum(*ptr) || *ptr == '+' || *ptr == '/' || *ptr == '='))
+      return 0;
+    ptr++;
+  }
+
+  return 1;
+}
+
+static void
+apply_admin_cookie_auth (connection_t *con)
+{
+  const char *cookie_header;
+  char cookie_auth[BUFSIZE];
+  char auth_header[BUFSIZE];
+
+  if (!con || !con->headervars)
+    return;
+
+  if (get_con_variable(con, "Authorization") != NULL)
+    return;
+
+  cookie_header = get_con_variable(con, "Cookie");
+  if (!cookie_header)
+    return;
+
+  if (!cookie_value(cookie_header, "ntripadmin", cookie_auth, sizeof(cookie_auth)))
+    return;
+
+  if (!is_base64_cookie_token(cookie_auth))
+    return;
+
+  if (strlen(cookie_auth) > sizeof(auth_header) - strlen("Basic ") - 1)
+    return;
+
+  snprintf(auth_header, sizeof(auth_header), "Basic %s", cookie_auth);
+  add_varpair2(con->headervars, nstrdup("Authorization"), nstrdup(auth_header));
+}
+
+
+
+static void
+write_http_redirect (connection_t *con, const char *location, const char *set_cookie)
+{
+  write_http_header (con->sock, 302, "Found");
+  sock_write_line (con->sock, "Connection: close");
+  if (set_cookie && *set_cookie)
+    sock_write_line (con->sock, "Set-Cookie: %s", set_cookie);
+  sock_write_line (con->sock, "Location: %s", location ? location : "/");
+  sock_write_line (con->sock, "Content-Type: text/html\r\n");
+  sock_write_line (con->sock, "<html><body><a href=\"%s\">Continue</a></body></html>",
+   location ? location : "/");
+}
+
+static void
+write_admin_login_page (connection_t *con, const char *error)
+{
+  vartree_t *variables;
+  char file[BUFSIZE];
+
+  if (!con)
+    return;
+
+  variables = avl_create (compare_vars, &info);
+  if (!variables)
+  {
+    write_http_code_page(con, 500, "Internal Server Error");
+    return;
+  }
+
+  add_varpair2(variables, nstrdup("LOGIN_ERROR"), nstrdup(error ? error : ""));
+
+  if (get_ntripcaster_file ("admin_login.html", template_file_e, R_OK, file) != NULL)
+    write_template_parsed_html_page (con, NULL, file, -1, variables);
+  else
+  {
+    write_http_code_page (con, 401, "Unauthorized");
+    free_variables (variables);
+  }
+}
+
 
 http_parsable_t *
 find_http_element (char *name, http_parsable_t *el)
@@ -425,10 +559,13 @@ int http_admin_command (connection_t *con, ntrip_request_t *req)
 #endif
   if (!allowed(con, admin_e) || !info.allow_http_admin)
   {
+    write_log (LOG_DEFAULT, "DEBUG LOGIN: admin access DENIED by acl");
     write_http_code_page (con, 403, "Forbidden");
     kick_not_connected_path(con, req->path, "Access denied (internal acl list (admin connection))");
     thread_exit(0);
   }
+
+  write_log (LOG_DEFAULT, "DEBUG LOGIN: http_admin_command allowed, path=[%s]", req->path);
 
   if ((ntripcaster_strncmp (req->path, "admin", 5) == 0)
   || (ntripcaster_strncmp (req->path, "/admin", 6) == 0)
@@ -437,6 +574,7 @@ int http_admin_command (connection_t *con, ntrip_request_t *req)
     thread_rename ("HTTP Admin Thread");
     put_http_admin (con);
     display_admin_page (con, req);
+    write_log (LOG_DEFAULT, "DEBUG LOGIN: display_admin_page returned OK");
     return 1;
   }
   return 0;
@@ -455,9 +593,34 @@ display_admin_page (connection_t *con, ntrip_request_t *req)
   com_request_t comreq;
   int argcount = 1;
   int html = 1;
+  int login_attempt = 0;
+  int login_failed = 0;
   char argstring[BUFSIZE], buff[BUFSIZE];
+  char authline[BUFSIZE];
+  char login_cookie[BUFSIZE];
+  char user_pass[BUFSIZE];
+  char *decoded_user = NULL;
+  char *decoded_pass = NULL;
+  char *encoded = NULL;
+  const char *username;
+  const char *password;
+
+  write_log (LOG_DEFAULT, "DEBUG LOGIN: enter display_admin_page path=[%s]", req->path);
 
   extract_vars (request_vars, req->path);
+
+  write_log (LOG_DEFAULT, "DEBUG LOGIN: after extract_vars path=[%s]", req->path);
+
+  if ((ntripcaster_strncmp (req->path, "/admin/logout", 13) == 0)
+  || (ntripcaster_strncmp (req->path, "admin/logout", 12) == 0))
+  {
+    write_http_redirect(con, "/admin/login",
+     "ntripadmin=; Path=/admin; HttpOnly; SameSite=Lax; Max-Age=0");
+    free_variables (request_vars);
+    return;
+  }
+
+  apply_admin_cookie_auth(con);
 
   comreq.con = con;
   comreq.wid = -1;
@@ -493,15 +656,87 @@ display_admin_page (connection_t *con, ntrip_request_t *req)
   }
 
   zero_request (&checkreq);
+  strncpy (checkreq.path, "/admin", BUFSIZE);
+
+  if ((ntripcaster_strncmp (req->path, "/admin/login", 12) == 0)
+  || (ntripcaster_strncmp (req->path, "admin/login", 11) == 0)
+  || (get_variable (request_vars, "login") != NULL))
+  {
+    login_attempt = (get_variable (request_vars, "login") != NULL);
+    write_log (LOG_DEFAULT, "DEBUG LOGIN: login block entered, login_attempt=%d", login_attempt);
+
+    if (login_attempt)
+    {
+      username = get_variable(request_vars, "username");
+      password = get_variable(request_vars, "password");
+      write_log (LOG_DEFAULT, "DEBUG LOGIN: username=%s password=%s", username ? username : "(null)", password ? "(set)" : "(null)");
+
+      if (username && password)
+      {
+        decoded_user = url_decode(username);
+        decoded_pass = url_decode(password);
+        write_log (LOG_DEFAULT, "DEBUG LOGIN: url_decode done user=%s", decoded_user ? decoded_user : "(null)");
+
+        if (decoded_user && decoded_pass
+        && snprintf(user_pass, sizeof(user_pass), "%s:%s", decoded_user, decoded_pass) < (int)sizeof(user_pass))
+        {
+          encoded = util_base64_encode(user_pass);
+          write_log (LOG_DEFAULT, "DEBUG LOGIN: base64 encoded=%s", encoded ? encoded : "(null)");
+          if (encoded
+          && snprintf(authline, sizeof(authline), "Basic %s", encoded) < (int)sizeof(authline))
+          {
+            write_log (LOG_DEFAULT, "DEBUG LOGIN: adding Authorization header");
+            add_varpair2(con->headervars, nstrdup("Authorization"), nstrdup(authline));
+
+            write_log (LOG_DEFAULT, "DEBUG LOGIN: calling authenticate_user_request");
+            if (authenticate_user_request (con, &checkreq, client_e))
+            {
+              write_log (LOG_DEFAULT, "DEBUG LOGIN: auth SUCCESS, writing redirect");
+              snprintf(login_cookie, sizeof(login_cookie),
+               "ntripadmin=%s; Path=/admin; HttpOnly; SameSite=Lax", encoded);
+              write_http_redirect(con, "/admin", login_cookie);
+              write_log (LOG_DEFAULT, "DEBUG LOGIN: redirect written, cleaning up");
+              nfree(encoded);
+              nfree(decoded_user);
+              nfree(decoded_pass);
+              free_variables (request_vars);
+              write_log (LOG_DEFAULT, "DEBUG LOGIN: returning after success");
+              return;
+            }
+            write_log (LOG_DEFAULT, "DEBUG LOGIN: auth FAILED");
+          }
+        }
+      }
+      login_failed = 1;
+    }
+
+    write_log (LOG_DEFAULT, "DEBUG LOGIN: showing login page, failed=%d", login_failed);
+    write_admin_login_page(con, login_failed ? "Invalid username or password" : NULL);
+    write_log (LOG_DEFAULT, "DEBUG LOGIN: login page written");
+
+    if (encoded)
+    {
+      nfree(encoded);
+    }
+    if (decoded_user)
+    {
+      nfree(decoded_user);
+    }
+    if (decoded_pass)
+    {
+      nfree(decoded_pass);
+    }
+
+    free_variables (request_vars);
+    return;
+  }
 
   if (!basic_command)
   {
-    strncpy (checkreq.path, "/admin", BUFSIZE);
-
     if (info.allow_http_admin == 1 && authenticate_user_request (con, &checkreq, client_e))
       display_generic_admin_page (con);
     else
-      write_401 (con, checkreq.path);
+      write_admin_login_page (con, NULL);
 
     free_variables (request_vars);
     return;
@@ -540,7 +775,10 @@ display_admin_page (connection_t *con, ntrip_request_t *req)
   if (info.allow_http_admin == 0 || (need_authentication (&checkreq, get_client_mounttree()) != NULL)) {
     if (info.allow_http_admin == 0 || !authenticate_user_request (con, &checkreq, client_e))
     {
-      write_401 (con, checkreq.path);
+      if (html)
+        write_admin_login_page (con, "Your session has expired. Please log in again");
+      else
+        write_401 (con, checkreq.path);
       free_variables (request_vars);
       return;
     }
@@ -607,6 +845,25 @@ void write_file_raw(connection_t *con, const char *file)
     } while(len == sizeof(buf));
   }
   fd_close (ffd);
+}
+
+void
+http_get_logo (connection_t *con)
+{
+  char file[BUFSIZE];
+
+  if (get_ntripcaster_file ("logo.png", template_file_e, R_OK, file) != NULL)
+  {
+    write_http_header (con->sock, 200, "OK");
+    sock_write_line (con->sock, "Connection: close");
+    sock_write_line (con->sock, "Cache-Control: public, max-age=86400");
+    sock_write_line (con->sock, "Content-Type: image/png\r\n");
+    write_file_raw (con, file);
+  } else {
+    write_http_header (con->sock, 404, "Not found");
+    sock_write_line (con->sock, "Connection: close");
+    sock_write_line (con->sock, "Content-Type: text/plain\r\n");
+  }
 }
 
 void

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>@SERVERNAME@ - Admin Login</title>
+@INCLUDE style.html@
+    <style>
+      .login-shell {
+        max-width: 460px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .login-error {
+        margin: 0 0 14px 0;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #f5b1b1;
+        background: #fff2f2;
+        color: #8d1f1f;
+        min-height: 20px;
+      }
+      .login-error:empty {
+        display: none;
+      }
+      .login-meta {
+        color: var(--text-muted);
+        font-size: 0.93rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/" class="navbar-brand">
+        <img src="/logo.png" class="logo logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display=''" alt="Logo">
+        <div class="logo" style="display:none">NC</div>
+        <div>
+          <div class="brand-text">@SERVERNAME@</div>
+          <div class="brand-sub">NtripCaster Admin</div>
+        </div>
+      </a>
+      <div class="navbar-status">
+        <div class="lang-selector">
+          <button class="lang-btn"><span class="flag">🇺🇸</span><span class="lang-code">EN</span></button>
+          <div class="lang-dropdown">
+            <a class="lang-option" data-lang="en"><span class="flag">🇺🇸</span>English</a>
+            <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+            <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-wrapper">
+      <div class="login-shell">
+        <div class="card">
+          <div class="card-header">
+            <h2 data-i18n="login.title">Admin Login</h2>
+          </div>
+          <form id="loginForm" action="/admin/login" method="get" class="form-card">
+            <input type="hidden" name="login" value="1">
+            <p class="login-error" id="loginError">@LOGIN_ERROR@</p>
+
+            <label for="username" data-i18n="login.username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required>
+
+            <label for="password" data-i18n="login.password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+            <button type="submit" class="btn" data-i18n="login.sign_in">Sign In</button>
+          </form>
+          <script>
+          (function() {
+            var errEl = document.getElementById('loginError');
+            if (errEl && errEl.textContent.trim()) {
+              errEl.setAttribute('data-i18n', 'login.error_invalid');
+            }
+          })();
+          document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var u = encodeURIComponent(document.getElementById('username').value);
+            var p = encodeURIComponent(document.getElementById('password').value);
+            window.location.href = '/admin/login?login=1&username=' + u + '&password=' + p;
+          });
+          </script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

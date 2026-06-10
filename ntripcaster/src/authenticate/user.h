@@ -51,7 +51,7 @@ bantree_t *create_ban_tree();
 void free_user_tree(usertree_t * ut);
 void free_ban_tree(bantree_t * bt);
 int user_authenticate(char *cuser, const char *password);
-int ban_check(char *ip);
+int ban_check(const char *ip);
 ntripcaster_user_t *find_user_from_tree(usertree_t * ut, char *name);
 ntripcaster_user_t *con_get_user(connection_t * con);
 void con_display_users(com_request_t * req);

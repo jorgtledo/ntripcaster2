@@ -7,7 +7,8 @@
 <body>
 <nav class="navbar">
   <a href="/admin" class="navbar-brand">
-    <div class="logo">NC</div>
+    <img src="/logo.png" class="logo logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display=''" alt="Logo">
+    <div class="logo" style="display:none">NC</div>
     <div>
       <div class="brand-text">@SERVERNAME@</div>
       <div class="brand-sub">NtripCaster Admin</div>
@@ -16,6 +17,7 @@
   <div class="navbar-status">
     <span class="pulse"></span>
     <span data-i18n="status.online">Online</span>
+    <a href="/admin/logout" class="btn btn-danger" style="margin-left: 14px; padding: 7px 12px;" data-i18n="nav.logout">Log out</a>
     <div class="lang-selector">
       <button class="lang-btn"><span class="flag">🇺🇸</span><span class="lang-code">EN</span></button>
       <div class="lang-dropdown">
