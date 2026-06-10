@@ -141,6 +141,11 @@ acl_policy 1
 
 ################################ Security ######################################
 
+# read timeout in seconds for source data.
+# if no data arrives for this interval, source is assumed dead and disconnected.
+# valid range is typically between 10 and 120 seconds
+read_timeout 16
+
 # allow sending sourcetable via UDP (1 = yes, 0 = no [default])
 # could be used for UDP-based amplification attack to do D(DOS) on other
 # servers when enabled and not properly mitigated

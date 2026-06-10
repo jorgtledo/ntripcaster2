@@ -1,0 +1,4 @@
+Contact: mailto:igs-ip@bkg.bund.de
+Expires: 2027-06-10T00:00:00Z
+Preferred-Languages: en,de,es
+Policy: https://igs.bkg.bund.de/ntrip/index

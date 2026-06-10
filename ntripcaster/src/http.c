@@ -419,14 +419,14 @@ int http_admin_command (connection_t *con, ntrip_request_t *req)
   if (!sock_check_libwrap (con->sock, admin_e))
   {
     write_http_code_page (con, 403, "Forbidden");
-    kick_not_connected(con, "Access denied (libwrap (admin connection))");
+    kick_not_connected_path(con, req->path, "Access denied (libwrap (admin connection))");
     thread_exit(0);
   }
 #endif
   if (!allowed(con, admin_e) || !info.allow_http_admin)
   {
     write_http_code_page (con, 403, "Forbidden");
-    kick_not_connected(con, "Access denied (internal acl list (admin connection))");
+    kick_not_connected_path(con, req->path, "Access denied (internal acl list (admin connection))");
     thread_exit(0);
   }
 
@@ -625,6 +625,25 @@ http_get_robots (connection_t *con)
     sock_write_line (con->sock, "Connection: close");
     sock_write_line (con->sock, "Content-Type: text/plain\r\n");
     sock_write_line (con->sock, "User-agent: *\nDisallow: /\n");
+  }
+}
+
+void
+http_get_security (connection_t *con)
+{
+  char file[BUFSIZE];
+
+  if (get_ntripcaster_file ("security.txt", template_file_e, R_OK, file) != NULL)
+  {
+    write_http_header (con->sock, 200, "OK");
+    sock_write_line (con->sock, "Connection: close");
+    sock_write_line (con->sock, "Content-Type: text/plain\r\n");
+    write_file_raw (con, file);
+  } else {
+    write_http_header (con->sock, 404, "Not found");
+    sock_write_line (con->sock, "Connection: close");
+    sock_write_line (con->sock, "Content-Type: text/html\r\n");
+    sock_write_line (con->sock, "<html>No security.txt found.<br></html>");
   }
 }
 

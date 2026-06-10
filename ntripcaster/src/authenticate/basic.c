@@ -261,6 +261,7 @@ int authenticate_user_request(connection_t *con, ntrip_request_t *req, contype_t
 
   if(strncmp(req->path, "/admin", 6) && strncmp(req->path, "/oper", 5)
   && strncmp(req->path, "/home", 5) && strncmp(req->path, "/robots.txt", 11)
+  && strncmp(req->path, "/security.txt", 13)
   && strcmp(req->path, "all") && strcmp(req->path, "default")) {
     ntrip_request_t r;
     if(!mount) {
