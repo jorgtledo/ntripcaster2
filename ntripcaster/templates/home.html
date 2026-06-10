@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>@SERVERNAME@ GNSS Streaming Server</title>
+    <title>@SERVERNAME@ — GNSS Streaming Server</title>
 @INCLUDE style.html@
   </head>
   <body>
-    <h1>Welcome to the @SERVERNAME@ GNSS Streaming Server</h1>
-    <hr>
-    <p>Protocol: <i>NTRIP @NTRIPPROTOCOLVERSION@</i></p>
-    This server is <i>@NAME@</i>, run by <a href="@OPERATORURL@">@OPERATOR@</a><br>
-    and up @UPTIME@ since @STARTTIME@.
-    <hr>
+    <nav class="navbar">
+      <a href="/" class="navbar-brand">
+        <div class="logo">NC</div>
+        <div>
+          <div class="brand-text">@SERVERNAME@</div>
+          <div class="brand-sub">GNSS Streaming Server</div>
+        </div>
+      </a>
+      <div class="navbar-status">
+        <span class="pulse"></span>
+        Online
+      </div>
+    </nav>
+
+    <div class="page-wrapper">
+      <div class="page-header">
+        <h1>Welcome</h1>
+        <p>NTRIP @NTRIPPROTOCOLVERSION@ Streaming Server</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Server Information</h3>
+          <span class="badge badge-success">Active</span>
+        </div>
+        <table class="data-table">
+          <tr>
+            <td><strong>Name</strong></td>
+            <td>@NAME@</td>
+          </tr>
+          <tr>
+            <td><strong>Operator</strong></td>
+            <td><a href="@OPERATORURL@">@OPERATOR@</a></td>
+          </tr>
+          <tr>
+            <td><strong>Protocol</strong></td>
+            <td>NTRIP @NTRIPPROTOCOLVERSION@</td>
+          </tr>
+          <tr>
+            <td><strong>Uptime</strong></td>
+            <td>@UPTIME@</td>
+          </tr>
+          <tr>
+            <td><strong>Running since</strong></td>
+            <td>@STARTTIME@</td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

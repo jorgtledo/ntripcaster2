@@ -1,26 +1,16 @@
-<h2> Change the value of @varname@ </h2>
-<hr>
-<form action="/admin" method="get" align="center">
-<table align=center>
-  <tr><td align="right">
-  	Current value is:
-  </td>
-  <td>
-  	<b>@currentvalue@</b>
-  </td>
-  <td align="right">
-  	<input type="submit" value="Change">
-  </td></tr>
-  <tr><td align="right">
-  	New value:
-  </td>
-  <td align="center" colspan="2">
-  	<input size="30" type="text" name="argument1">
-  </td></tr>
-</table>
-<input type=hidden name="mode" value="set">
-<input type=hidden name="argument" value="@varname@">
-</form>
-
-
+<div class="card form-card">
+  <div class="card-header">
+    <h3>Edit Setting</h3>
+    <span class="badge">@varname@</span>
+  </div>
+  <form action="/admin" method="get">
+    <label>Current value</label>
+    <input type="text" value="@currentvalue@" disabled>
+    <label>New value</label>
+    <input type="text" name="argument1" placeholder="Enter new value" required>
+    <input type="hidden" name="mode" value="set">
+    <input type="hidden" name="argument" value="@varname@">
+    <button type="submit" class="btn">Save Changes</button>
+  </form>
+</div>
 

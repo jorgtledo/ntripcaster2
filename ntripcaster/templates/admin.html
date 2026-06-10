@@ -1,94 +1,126 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Welcome to the @SERVERNAME@ NtripCaster WWW Status Interface</title>
+    <title>@SERVERNAME@ — NtripCaster Admin</title>
 @INCLUDE style.html@
   </head>
   <body>
-    <h1>Welcome to the @SERVERNAME@ NtripCaster Web Status Interface</h1>
-    <hr>
-    This server is @SERVERNAME@, located in <a href="@URL@">@LOCATION@</a>, and run by @RPEMAIL@<br>
-    Listening on port @PORT@, with the current limitations:<br>
-    Listeners: @MAXLISTENERS@<br>
-    Sources: @MAXSOURCES@<br>
-    Max listeners per source: @MAXLISTENERSPERSOURCE@<br>
-    Will throttle at @THROTTLE@ KB/s, and currently using @BANDWIDTH@ KB/s<br>
-    @SERVERNAME@ has been up @UPTIME@, since @STARTTIME@.<br>
-    <hr>
-    <table class="listtable">
-    <tr>
-        <td><a href="/admin?mode=stats">statistics</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Show the server statistics (click <a href="/admin?mode=stats&argument=prom&nohtml=1">here</a> for <a href="https://prometheus.io/docs/instrumenting/exposition_formats/" target="_blank">Prometheus</a> endpoint)</td>
-    </tr>
-    <tr>
-      <td><a href="/admin?mode=sourcetable">sourcetable</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Show sourcetable</td>
-    </tr>
-    <tr>
-      <td><a href="/admin?mode=listeners">listeners</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>List connected listeners</td>
-    </tr>
-    <tr>
-      <td><a href="/admin?mode=sources">sources</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>List connected sources</td>
-    </tr>
-    <tr>
-      <td><a href="/admin?mode=connections">connections</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>List all connections for kicking</td>
-    </tr>
-    <tr>
-      <td><a href="/admin?mode=admins">admins</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>List connected admins</td>
-    </tr>
+    <nav class="navbar">
+      <a href="/admin" class="navbar-brand">
+        <div class="logo">NC</div>
+        <div>
+          <div class="brand-text">@SERVERNAME@</div>
+          <div class="brand-sub">NtripCaster Admin</div>
+        </div>
+      </a>
+      <div class="navbar-status">
+        <span class="pulse"></span>
+        Online
+      </div>
+    </nav>
 
-<!--
-      <tr>
-        <td><a href="/admin?mode=auth">authentication</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Administrate authentication files</td>
-    </tr>
--->
+    <div class="page-wrapper">
+      <div class="page-header">
+        <h1>Server Dashboard</h1>
+        <p>Located in <a href="@URL@">@LOCATION@</a> &middot; Managed by @RPEMAIL@ &middot; Running since @STARTTIME@</p>
+      </div>
 
-    <tr><td colspan="5"><hr></td></tr>
-    <tr>
-        <td><a href="/admin?mode=set">settings</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>List server settings</td>
-    </tr>
-<!--
-    <tr>
-      <td><a href="/admin?mode=help">help</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Browse online ntripcaster documentation</td>
-      <td></td>
-    </tr>
--->
-    </table>
-    <hr>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Port</div>
+          <div class="metric-value">@PORT@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Uptime</div>
+          <div class="metric-value">@UPTIME@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Bandwidth</div>
+          <div class="metric-value">@BANDWIDTH@<span class="metric-unit">KB/s</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Throttle</div>
+          <div class="metric-value">@THROTTLE@<span class="metric-unit">KB/s</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Max Listeners</div>
+          <div class="metric-value">@MAXLISTENERS@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Max Sources</div>
+          <div class="metric-value">@MAXSOURCES@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Per Source Limit</div>
+          <div class="metric-value">@MAXLISTENERSPERSOURCE@</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="nav-grid">
+          <a href="/admin?mode=stats" class="nav-card">
+            <div class="nav-icon">&#128200;</div>
+            <div class="nav-content">
+              <h4>Statistics</h4>
+              <p>Server performance metrics</p>
+            </div>
+          </a>
+          <a href="/admin?mode=sourcetable" class="nav-card">
+            <div class="nav-icon">&#128225;</div>
+            <div class="nav-content">
+              <h4>Sourcetable</h4>
+              <p>Available GNSS streams</p>
+            </div>
+          </a>
+          <a href="/admin?mode=listeners" class="nav-card">
+            <div class="nav-icon">&#128266;</div>
+            <div class="nav-content">
+              <h4>Listeners</h4>
+              <p>Connected clients</p>
+            </div>
+          </a>
+          <a href="/admin?mode=sources" class="nav-card">
+            <div class="nav-icon">&#128225;</div>
+            <div class="nav-content">
+              <h4>Sources</h4>
+              <p>Active data sources</p>
+            </div>
+          </a>
+          <a href="/admin?mode=connections" class="nav-card">
+            <div class="nav-icon">&#128279;</div>
+            <div class="nav-content">
+              <h4>Connections</h4>
+              <p>Manage all connections</p>
+            </div>
+          </a>
+          <a href="/admin?mode=admins" class="nav-card">
+            <div class="nav-icon">&#128100;</div>
+            <div class="nav-content">
+              <h4>Admins</h4>
+              <p>Administrator sessions</p>
+            </div>
+          </a>
+          <a href="/admin?mode=set" class="nav-card">
+            <div class="nav-icon">&#9881;</div>
+            <div class="nav-content">
+              <h4>Settings</h4>
+              <p>Server configuration</p>
+            </div>
+          </a>
+          <a href="/admin?mode=stats&argument=prom&nohtml=1" class="nav-card">
+            <div class="nav-icon">&#128202;</div>
+            <div class="nav-content">
+              <h4>Prometheus</h4>
+              <p>Metrics endpoint</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
   </body>
 </html>
 

@@ -176,16 +176,16 @@ http_variable_t http_variables[] =
 
 http_link_t http_links[] =
 {
-  { "/admin", "<b>home</b>", " | " },
-  { "/admin?mode=stats", "statistics", " | " },
-  { "/admin?mode=sourcetable", "sourcetable", " | " },
-  { "/admin?mode=listeners", "listeners", " | " },
-  { "/admin?mode=sources", "sources", " | " },
-  { "/admin?mode=connections", "connections", " | " },
-  { "/admin?mode=admins", "admins", " || " },
-//  { "/admin?mode=auth", "authentication", " | " },
-  { "/admin?mode=set", "settings", "" },
-  { (char *) NULL, (char *) NULL }
+  { "/admin", "Home", "&#127968;" },
+  { "/admin?mode=stats", "Statistics", "&#128200;" },
+  { "/admin?mode=sourcetable", "Sourcetable", "&#128225;" },
+  { "/admin?mode=listeners", "Listeners", "&#128266;" },
+  { "/admin?mode=sources", "Sources", "&#128225;" },
+  { "/admin?mode=connections", "Connections", "&#128279;" },
+  { "/admin?mode=admins", "Admins", "&#128100;" },
+//  { "/admin?mode=auth", "Authentication", "&#128274;" },
+  { "/admin?mode=set", "Settings", "&#9881;" },
+  { (char *) NULL, (char *) NULL, (char *) NULL }
 };
 
 /* Functions to call for the server-parsed language */
@@ -1397,14 +1397,14 @@ http_write_links(const com_request_t * req)
 {
   int i=0;
 
-  admin_write (req, ADMIN_SHOW_LINKS, "<div class=\"nobreak\">");
+  admin_write (req, ADMIN_SHOW_LINKS, "<nav class=\"page-nav\"><div class=\"nav-pills\">");
 
   while (http_links[i].path != NULL) {
-    admin_write (req, ADMIN_SHOW_LINKS, "<a href=\"%s\">%s</a>%s", http_links[i].path, http_links[i].link, http_links[i].space);
+    admin_write (req, ADMIN_SHOW_LINKS, "<a href=\"%s\" class=\"pill\"><span class=\"pill-icon\">%s</span><span>%s</span></a>", http_links[i].path, http_links[i].space, http_links[i].link);
     i++;
   }
 
-  admin_write (req, ADMIN_SHOW_LINKS, "</div><hr>");
+  admin_write (req, ADMIN_SHOW_LINKS, "</div></nav>");
 
   return 1;
 

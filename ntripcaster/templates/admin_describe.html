@@ -1,8 +1,24 @@
-    <h1>
-    Connection id: @describe_id@<br>
-    Connection socket: @describe_sock@<br>
-    Connection Connect Time: @describe_connecttime@<br>
-    Connection IP: @describe_ip@<br>
-    <hr>
+    <div class="card">
+      <div class="card-header">
+        <h3>Connection Details</h3>
+        <span class="badge badge-success">Active</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">ID</span>
+        <strong>@describe_id@</strong>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Socket</span>
+        <span>@describe_sock@</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Connect Time</span>
+        <span>@describe_connecttime@</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">IP Address</span>
+        <code>@describe_ip@</code>
+      </div>
+    </div>
   </body>
 </html>
