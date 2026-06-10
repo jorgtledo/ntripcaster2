@@ -2,13 +2,13 @@
     <div class="card-header">
       <h3 data-i18n="forms.add_alias">Add Mountpoint Alias</h3>
     </div>
-    <p class="text-muted text-small">Create an alias for a local mountpoint or a remote stream. Remote aliases connect on-demand and share a single upstream connection across clients.</p>
+    <p class="text-muted text-small" data-i18n="forms.alias_helper">Create an alias for a local mountpoint or a remote stream. Remote aliases connect on-demand and share a single upstream connection across clients.</p>
     <form action="/admin" method="get">
       <label data-i18n="forms.alias_name">Alias Name</label>
       <input type="text" name="argument1" placeholder="e.g. /myalias" required>
       <label data-i18n="forms.real_mountpoint">Real Mountpoint</label>
       <input type="text" name="argument2" maxlength="255" placeholder="local name or http://server:port/mount" required>
-      <p class="text-muted text-small">Use a plain name for local mounts, or <code>http://server:port/mount</code> for remote streams.</p>
+      <p class="text-muted text-small" data-i18n="forms.alias_hint">Use a plain name for local mounts, or <code>http://server:port/mount</code> for remote streams.</p>
       <input type="hidden" name="mode" value="alias">
       <input type="hidden" name="argument" value="add">
       <button type="submit" class="btn" data-i18n="forms.add">Add Alias</button>

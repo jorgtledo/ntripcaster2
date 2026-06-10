@@ -97,5 +97,57 @@
   },
   "general": {
     "back_to_dashboard": "Volver al Panel"
+  },
+  "table": {
+    "connection_id": "ID de Conexión",
+    "host": "Host",
+    "connected_for": "Conectado por",
+    "commands_issued": "Comandos ejecutados",
+    "mountpoint": "Punto de Montaje",
+    "id": "ID",
+    "source_agent": "Agente de Fuente",
+    "time_of_connect": "Hora de conexión",
+    "ip": "IP",
+    "clients": "Clientes",
+    "kbytes_read": "KB leídos",
+    "kbytes_written": "KB escritos",
+    "client_connections": "Conexiones de clientes",
+    "setting": "Configuración",
+    "value": "Valor",
+    "user": "Usuario",
+    "user_agent": "Agente de Usuario",
+    "bytes_written": "Bytes escritos",
+    "errors": "Errores",
+    "type": "Tipo"
+  },
+  "sections": {
+    "listing_admins": "Listando administradores",
+    "listing_sources": "Listando fuentes",
+    "listing_listeners": "Listando oyentes",
+    "current_settings": "Configuración actual",
+    "sourcetable": "Tabla de fuentes",
+    "end_admins": "Fin del listado de admins",
+    "end_sources": "Fin del listado de fuentes",
+    "end_listeners": "Fin del listado de oyentes",
+    "end_settings": "Fin de configuración"
+  },
+  "actions": {
+    "change": "Cambiar",
+    "kick": "Desconectar",
+    "describe": "Describir"
+  },
+  "forms": {
+    "edit_setting": "Editar Configuración",
+    "current_value": "Valor actual",
+    "new_value": "Nuevo valor",
+    "save_changes": "Guardar Cambios",
+    "add_alias": "Agregar Alias de Punto de Montaje",
+    "alias_name": "Nombre del Alias",
+    "real_mountpoint": "Punto de Montaje Real",
+    "add": "Agregar Alias",
+    "delete_alias": "Eliminar Alias de Punto de Montaje",
+    "delete": "Eliminar Alias",
+    "alias_helper": "Crear un alias para un punto de montaje local o un stream remoto. Los alias remotos se conectan bajo demanda y comparten una sola conexión upstream entre clientes.",
+    "alias_hint": "Use un nombre simple para montajes locales, o http://servidor:puerto/montaje para streams remotos."
   }
 }

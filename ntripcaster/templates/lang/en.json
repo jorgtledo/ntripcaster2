@@ -97,5 +97,57 @@
   },
   "general": {
     "back_to_dashboard": "Back to Dashboard"
+  },
+  "table": {
+    "connection_id": "Connection ID",
+    "host": "Host",
+    "connected_for": "Connected for",
+    "commands_issued": "Commands issued",
+    "mountpoint": "Mountpoint",
+    "id": "ID",
+    "source_agent": "Source Agent",
+    "time_of_connect": "Time of connect",
+    "ip": "IP",
+    "clients": "Clients",
+    "kbytes_read": "KBytes read",
+    "kbytes_written": "KBytes written",
+    "client_connections": "Client connections",
+    "setting": "Setting",
+    "value": "Value",
+    "user": "User",
+    "user_agent": "User Agent",
+    "bytes_written": "Bytes written",
+    "errors": "Errors",
+    "type": "Type"
+  },
+  "sections": {
+    "listing_admins": "Listing admins",
+    "listing_sources": "Listing sources",
+    "listing_listeners": "Listing listeners",
+    "current_settings": "Current settings",
+    "sourcetable": "Sourcetable",
+    "end_admins": "End of admin listing",
+    "end_sources": "End of source listing",
+    "end_listeners": "End of listener listing",
+    "end_settings": "End of settings"
+  },
+  "actions": {
+    "change": "Change",
+    "kick": "Kick",
+    "describe": "Describe"
+  },
+  "forms": {
+    "edit_setting": "Edit Setting",
+    "current_value": "Current value",
+    "new_value": "New value",
+    "save_changes": "Save Changes",
+    "add_alias": "Add Mountpoint Alias",
+    "alias_name": "Alias Name",
+    "real_mountpoint": "Real Mountpoint",
+    "add": "Add Alias",
+    "delete_alias": "Delete Mountpoint Alias",
+    "delete": "Delete Alias",
+    "alias_helper": "Create an alias for a local mountpoint or a remote stream. Remote aliases connect on-demand and share a single upstream connection across clients.",
+    "alias_hint": "Use a plain name for local mounts, or http://server:port/mount for remote streams."
   }
 }

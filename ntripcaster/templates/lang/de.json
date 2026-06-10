@@ -97,5 +97,57 @@
   },
   "general": {
     "back_to_dashboard": "Zurück zum Dashboard"
+  },
+  "table": {
+    "connection_id": "Verbindungs-ID",
+    "host": "Host",
+    "connected_for": "Verbunden seit",
+    "commands_issued": "Befehle ausgeführt",
+    "mountpoint": "Mountpoint",
+    "id": "ID",
+    "source_agent": "Quell-Agent",
+    "time_of_connect": "Verbindungszeit",
+    "ip": "IP",
+    "clients": "Clients",
+    "kbytes_read": "KB gelesen",
+    "kbytes_written": "KB geschrieben",
+    "client_connections": "Client-Verbindungen",
+    "setting": "Einstellung",
+    "value": "Wert",
+    "user": "Benutzer",
+    "user_agent": "User-Agent",
+    "bytes_written": "Bytes geschrieben",
+    "errors": "Fehler",
+    "type": "Typ"
+  },
+  "sections": {
+    "listing_admins": "Administratoren auflisten",
+    "listing_sources": "Quellen auflisten",
+    "listing_listeners": "Empfänger auflisten",
+    "current_settings": "Aktuelle Einstellungen",
+    "sourcetable": "Quelltabelle",
+    "end_admins": "Ende der Admin-Liste",
+    "end_sources": "Ende der Quellen-Liste",
+    "end_listeners": "Ende der Empfänger-Liste",
+    "end_settings": "Ende der Einstellungen"
+  },
+  "actions": {
+    "change": "Ändern",
+    "kick": "Trennen",
+    "describe": "Beschreiben"
+  },
+  "forms": {
+    "edit_setting": "Einstellung bearbeiten",
+    "current_value": "Aktueller Wert",
+    "new_value": "Neuer Wert",
+    "save_changes": "Änderungen speichern",
+    "add_alias": "Mountpoint-Alias hinzufügen",
+    "alias_name": "Alias-Name",
+    "real_mountpoint": "Echter Mountpoint",
+    "add": "Alias hinzufügen",
+    "delete_alias": "Mountpoint-Alias löschen",
+    "delete": "Alias löschen",
+    "alias_helper": "Erstellen Sie einen Alias für einen lokalen Mountpoint oder einen Remote-Stream. Remote-Aliase verbinden sich bei Bedarf und teilen eine einzelne Upstream-Verbindung zwischen Clients.",
+    "alias_hint": "Verwenden Sie einen einfachen Namen für lokale Mounts oder http://server:port/mount für Remote-Streams."
   }
 }
