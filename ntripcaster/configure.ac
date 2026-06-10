@@ -1,4 +1,4 @@
-AC_INIT([ntripcaster],[2.0.47])
+AC_INIT([ntripcaster],[2.0.48])
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE
 AC_USE_SYSTEM_EXTENSIONS

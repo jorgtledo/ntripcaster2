@@ -1,7 +1,29 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>NtripCaster @SERVERNAME@ WWW Admin Interface</title>
+  <title>NtripCaster @SERVERNAME@ — Admin</title>
 @INCLUDE style.html@
 </head>
 <body>
+<nav class="navbar">
+  <a href="/admin" class="navbar-brand">
+    <div class="logo">NC</div>
+    <div>
+      <div class="brand-text">@SERVERNAME@</div>
+      <div class="brand-sub">NtripCaster Admin</div>
+    </div>
+  </a>
+  <div class="navbar-status">
+    <span class="pulse"></span>
+    <span data-i18n="status.online">Online</span>
+    <div class="lang-selector">
+      <button class="lang-btn"><span class="flag">🇺🇸</span><span class="lang-code">EN</span></button>
+      <div class="lang-dropdown">
+        <a class="lang-option" data-lang="en"><span class="flag">🇺🇸</span>English</a>
+        <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+        <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="page-wrapper">

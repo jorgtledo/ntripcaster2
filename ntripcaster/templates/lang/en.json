@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "home": "Home",
+    "statistics": "Statistics",
+    "sourcetable": "Sourcetable",
+    "listeners": "Listeners",
+    "sources": "Sources",
+    "connections": "Connections",
+    "admins": "Admins",
+    "settings": "Settings",
+    "prometheus": "Prometheus"
+  },
+  "dashboard": {
+    "title": "Server Dashboard",
+    "located_in": "Located in",
+    "managed_by": "Managed by",
+    "running_since": "Running since",
+    "quick_actions": "Quick Actions",
+    "server_performance": "Server performance metrics",
+    "available_streams": "Available GNSS streams",
+    "connected_clients": "Connected clients",
+    "active_sources": "Active data sources",
+    "manage_connections": "Manage all connections",
+    "admin_sessions": "Administrator sessions",
+    "server_config": "Server configuration",
+    "metrics_endpoint": "Metrics endpoint"
+  },
+  "metrics": {
+    "port": "Port",
+    "uptime": "Uptime",
+    "bandwidth": "Bandwidth",
+    "throttle": "Throttle",
+    "max_listeners": "Max Listeners",
+    "max_sources": "Max Sources",
+    "per_source_limit": "Per Source Limit",
+    "total_read": "Total Read",
+    "total_written": "Total Written",
+    "source_connects": "Source Connects",
+    "client_connects": "Client Connects",
+    "avg_source_time": "Avg Source Time",
+    "avg_source_transfer": "Avg Source Transfer"
+  },
+  "stats": {
+    "title": "Server Statistics",
+    "connected_admins": "Connected Admins",
+    "connected_sources": "Connected Sources",
+    "location": "Location",
+    "responsible": "Responsible"
+  },
+  "home": {
+    "welcome": "Welcome",
+    "server_info": "Server Information",
+    "name": "Name",
+    "operator": "Operator",
+    "protocol": "Protocol",
+    "running_since": "Running since"
+  },
+  "connection": {
+    "details": "Connection Details",
+    "id": "ID",
+    "socket": "Socket",
+    "connect_time": "Connect Time",
+    "ip_address": "IP Address"
+  },
+  "forms": {
+    "edit_setting": "Edit Setting",
+    "current_value": "Current value",
+    "new_value": "New value",
+    "save_changes": "Save Changes",
+    "add_alias": "Add Mountpoint Alias",
+    "alias_name": "Alias Name",
+    "real_mountpoint": "Real Mountpoint",
+    "add": "Add Alias",
+    "delete_alias": "Delete Mountpoint Alias",
+    "delete": "Delete Alias"
+  },
+  "errors": {
+    "bad_request": "Bad Request",
+    "bad_request_desc": "The server could not understand your request. Please check and try again.",
+    "forbidden": "Access Denied",
+    "forbidden_desc": "You don't have permission to access this resource.",
+    "not_found": "Not Found",
+    "not_found_desc": "The requested stream or resource was not found on this server.",
+    "server_full": "Server Full",
+    "server_full_desc": "The server has reached maximum capacity. Please try again later.",
+    "invalid_request": "Invalid Request",
+    "invalid_request_desc": "The request sent by your application could not be processed.",
+    "banned": "Banned",
+    "banned_desc": "Your access to this server has been revoked.",
+    "unauthorized": "Unauthorized",
+    "unauthorized_desc": "The server does not recognize your privileges. Please check your credentials and try again.",
+    "go_home": "Go Home"
+  },
+  "status": {
+    "online": "Online",
+    "active": "Active"
+  },
+  "general": {
+    "back_to_dashboard": "Back to Dashboard"
+  },
+  "table": {
+    "connection_id": "Connection ID",
+    "host": "Host",
+    "connected_for": "Connected for",
+    "commands_issued": "Commands issued",
+    "mountpoint": "Mountpoint",
+    "id": "ID",
+    "source_agent": "Source Agent",
+    "time_of_connect": "Time of connect",
+    "ip": "IP",
+    "clients": "Clients",
+    "kbytes_read": "KBytes read",
+    "kbytes_written": "KBytes written",
+    "client_connections": "Client connections",
+    "setting": "Setting",
+    "value": "Value",
+    "user": "User",
+    "user_agent": "User Agent",
+    "bytes_written": "Bytes written",
+    "errors": "Errors",
+    "type": "Type"
+  },
+  "sections": {
+    "listing_admins": "Listing admins",
+    "listing_sources": "Listing sources",
+    "listing_listeners": "Listing listeners",
+    "current_settings": "Current settings",
+    "sourcetable": "Sourcetable",
+    "end_admins": "End of admin listing",
+    "end_sources": "End of source listing",
+    "end_listeners": "End of listener listing",
+    "end_settings": "End of settings"
+  },
+  "actions": {
+    "change": "Change",
+    "kick": "Kick",
+    "describe": "Describe"
+  },
+  "forms": {
+    "edit_setting": "Edit Setting",
+    "current_value": "Current value",
+    "new_value": "New value",
+    "save_changes": "Save Changes",
+    "add_alias": "Add Mountpoint Alias",
+    "alias_name": "Alias Name",
+    "real_mountpoint": "Real Mountpoint",
+    "add": "Add Alias",
+    "delete_alias": "Delete Mountpoint Alias",
+    "delete": "Delete Alias",
+    "alias_helper": "Create an alias for a local mountpoint or a remote stream. Remote aliases connect on-demand and share a single upstream connection across clients.",
+    "alias_hint": "Use a plain name for local mounts, or http://server:port/mount for remote streams."
+  }
+}

@@ -1,29 +1,96 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
-    <title>NtripCaster server statistics</title>
+    <title>NtripCaster — Server Statistics</title>
 @INCLUDE style.html@
   </head>
   <body>
-	<hr>
-	NtripCaster @VERSION@ server uptime: @UPTIME@<br>
-	NtripCaster server location: @LOCATION@<br>
-	Resposible person: @RPEMAIL@<br>
-	Listing admins (@ADMINS@):<br>
-	@FOREACH i ADMINS@
-	Admin [@i.host@] connected for @i.connecttime@.<br>
-	@ENDFOR i@
-	Listing sources (@SOURCES@):<br>
-	@FOREACH i SOURCES@
-	Source 	[@i.host@] connected for @i.connecttime@<br>
-	@ENDFOR i@
-	Displaying server statistics since last resync:<br>
-	Total Mbytes read: @TOTAL_READ@<br>
-	Total Mbytes written: @TOTAL_WRITTEN@<br>
-	Number of source connects: @SOURCE_CONNECTIONS@<br>
-	Number of client connects: @CLIENT_CONNECTIONS@<br>
-	Average source connect time: @AVERAGE_SOURCE_TIME@<br>
-	Average source transfer: @AVERAGE_SOURCE_TRANSFER@<br>
-        <hr>
+    <nav class="navbar">
+      <a href="/admin" class="navbar-brand">
+        <div class="logo">NC</div>
+        <div>
+          <div class="brand-text">Statistics</div>
+          <div class="brand-sub">NtripCaster @VERSION@</div>
+        </div>
+      </a>
+      <div class="navbar-status">
+        <span class="pulse"></span>
+        <span>@UPTIME@</span>
+        <div class="lang-selector">
+          <button class="lang-btn"><span class="flag">🇺🇸</span><span class="lang-code">EN</span></button>
+          <div class="lang-dropdown">
+            <a class="lang-option" data-lang="en"><span class="flag">🇺🇸</span>English</a>
+            <a class="lang-option" data-lang="es"><span class="flag">🇪🇸</span>Español</a>
+            <a class="lang-option" data-lang="de"><span class="flag">🇩🇪</span>Deutsch</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-wrapper">
+      <div class="page-header">
+        <h1 data-i18n="stats.title">Server Statistics</h1>
+        <p>@LOCATION@ &middot; @RPEMAIL@</p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.total_read">Total Read</div>
+          <div class="metric-value">@TOTAL_READ@<span class="metric-unit">MB</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.total_written">Total Written</div>
+          <div class="metric-value">@TOTAL_WRITTEN@<span class="metric-unit">MB</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.source_connects">Source Connects</div>
+          <div class="metric-value">@SOURCE_CONNECTIONS@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.client_connects">Client Connects</div>
+          <div class="metric-value">@CLIENT_CONNECTIONS@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.avg_source_time">Avg Source Time</div>
+          <div class="metric-value">@AVERAGE_SOURCE_TIME@</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label" data-i18n="metrics.avg_source_transfer">Avg Source Transfer</div>
+          <div class="metric-value">@AVERAGE_SOURCE_TRANSFER@</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 data-i18n="stats.connected_admins">Connected Admins</h3>
+          <span class="badge">@ADMINS@</span>
+        </div>
+        <div class="connection-list">
+          @FOREACH i ADMINS@
+          <div class="connection-item">
+            <span class="conn-host">@i.host@</span>
+            <span class="conn-time">@i.connecttime@</span>
+          </div>
+          @ENDFOR i@
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 data-i18n="stats.connected_sources">Connected Sources</h3>
+          <span class="badge">@SOURCES@</span>
+        </div>
+        <div class="connection-list">
+          @FOREACH i SOURCES@
+          <div class="connection-item">
+            <span class="conn-host">@i.host@</span>
+            <span class="conn-time">@i.connecttime@</span>
+          </div>
+          @ENDFOR i@
+        </div>
+      </div>
+
+      <a href="/admin" class="back-link">&larr; <span data-i18n="general.back_to_dashboard">Back to Dashboard</span></a>
+    </div>
   </body>
 </html>

@@ -598,6 +598,7 @@ void setup_defaults() {
 
   info.session_timeout = DEFAULT_SESSION_TIMEOUT;
   info.hide_version = DEFAULT_HIDE_VERSION;
+  info.language = nstrdup("en");
 
 #ifdef HAVE_LIBLDAP
   info.ldap_server = nstrdup(NC_LDAP_HOST);
