@@ -8,7 +8,8 @@
     "connections": "Conexiones",
     "admins": "Administradores",
     "settings": "Configuración",
-    "prometheus": "Prometheus"
+    "prometheus": "Prometheus",
+    "logout": "Cerrar sesión"
   },
   "dashboard": {
     "title": "Panel del Servidor",
@@ -97,6 +98,13 @@
   },
   "general": {
     "back_to_dashboard": "Volver al Panel"
+  },
+  "login": {
+    "title": "Inicio de Sesión",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "sign_in": "Iniciar Sesión",
+    "error_invalid": "Usuario o contraseña inválidos"
   },
   "table": {
     "connection_id": "ID de Conexión",

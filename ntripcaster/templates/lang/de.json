@@ -8,7 +8,8 @@
     "connections": "Verbindungen",
     "admins": "Administratoren",
     "settings": "Einstellungen",
-    "prometheus": "Prometheus"
+    "prometheus": "Prometheus",
+    "logout": "Abmelden"
   },
   "dashboard": {
     "title": "Server-Dashboard",
@@ -97,6 +98,13 @@
   },
   "general": {
     "back_to_dashboard": "Zurück zum Dashboard"
+  },
+  "login": {
+    "title": "Admin-Anmeldung",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "sign_in": "Anmelden",
+    "error_invalid": "Ungültiger Benutzername oder Passwort"
   },
   "table": {
     "connection_id": "Verbindungs-ID",

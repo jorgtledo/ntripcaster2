@@ -102,7 +102,7 @@ extern mutex_t authentication_mutex;
 extern usertree_t *usertree;
 extern grouptree_t *grouptree;
 extern bantree_t *bantree;
-int *banned_clients;
+int banned_clients;
 
 void parse_user_authentication_file()
 {
@@ -364,7 +364,7 @@ int user_authenticate(char *cuser, const char *password)
   return password_match(user->pass, password);
 }
 
-int ban_check(char *ip)
+int ban_check(const char *ip)
 {
   const ntripcaster_ban_t *banned;
   ntripcaster_ban_t search;
