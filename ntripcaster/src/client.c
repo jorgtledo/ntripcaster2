@@ -212,7 +212,9 @@ void http_client_login(connection_t *con, ntrip_request_t *req) {
 
   is_admin_path = (ntripcaster_strncmp(req->path, "/admin", 6) == 0);
 
-  if (!is_admin_path && !authenticate_user_request (con, req, client_e)) {
+  if (!is_admin_path
+  && (ntripcaster_strncmp(req->path, "/logo.png", 9) != 0)
+  && !authenticate_user_request (con, req, client_e)) {
     ntrip_write_message(con, HTTP_GET_NOT_AUTHORIZED, get_formatted_time(HEADER_TIME, time), req->path, "text/html");
     kick_not_connected_path (con, req->path, "Not authorized");
     return;

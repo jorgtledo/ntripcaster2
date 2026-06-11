@@ -1,11 +1,11 @@
 FROM ubuntu:24.04 AS builder
 
+RUN apt-get update && \
+    apt-get install -y autoconf build-essential dos2unix
+
 COPY ntripcaster /ntripcaster
 
 WORKDIR /ntripcaster
-
-RUN apt-get update && \
-    apt-get install -y autoconf build-essential dos2unix
 
 RUN find . -type f \( -name "*.ac" -o -name "*.am" -o -name "*.in" -o -name "configure*" -o -name "Makefile*" -o -name "*.c" -o -name "*.h" -o -name "*.sh" -o -name "casterwatch" -o -name "ntripcaster" -o -name "*.conf*" -o -name "*.aut*" -o -name "*.dat*" \) -exec dos2unix {} + 2>/dev/null || true
 
@@ -19,6 +19,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends bash && rm -rf 
 # Note that the ./configure script installs into /usr/local/ntripcaster
 # by default.
 COPY --from=builder /usr/local/ntripcaster/ /usr/local/ntripcaster/
+
+# Copy custom assets (logo) if present
+COPY ntripcaster/templates/logo.png /usr/local/ntripcaster/templates/logo.png
 
 # Set the working directory to the log directory for easy access
 # to the log files via `docker exec cat <log-name>.log`
