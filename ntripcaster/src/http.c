@@ -614,8 +614,13 @@ display_admin_page (connection_t *con, ntrip_request_t *req)
   if ((ntripcaster_strncmp (req->path, "/admin/logout", 13) == 0)
   || (ntripcaster_strncmp (req->path, "admin/logout", 12) == 0))
   {
-    write_http_redirect(con, "/admin/login",
-     "ntripadmin=; Path=/admin; HttpOnly; SameSite=Lax; Max-Age=0");
+    write_http_header (con->sock, 302, "Found");
+    sock_write_line (con->sock, "Connection: close");
+    sock_write_line (con->sock, "Set-Cookie: ntripadmin=; Path=/admin; HttpOnly; SameSite=Lax; Max-Age=0");
+    sock_write_line (con->sock, "Set-Cookie: ntripuser=; Path=/admin; SameSite=Lax; Max-Age=0");
+    sock_write_line (con->sock, "Location: /admin/login");
+    sock_write_line (con->sock, "Content-Type: text/html\r\n");
+    sock_write_line (con->sock, "<html><body><a href=\"/admin/login\">Continue</a></body></html>");
     free_variables (request_vars);
     return;
   }
@@ -694,7 +699,13 @@ display_admin_page (connection_t *con, ntrip_request_t *req)
               write_log (LOG_DEFAULT, "DEBUG LOGIN: auth SUCCESS, writing redirect");
               snprintf(login_cookie, sizeof(login_cookie),
                "ntripadmin=%s; Path=/admin; HttpOnly; SameSite=Lax", encoded);
-              write_http_redirect(con, "/admin", login_cookie);
+              write_http_header (con->sock, 302, "Found");
+              sock_write_line (con->sock, "Connection: close");
+              sock_write_line (con->sock, "Set-Cookie: %s", login_cookie);
+              sock_write_line (con->sock, "Set-Cookie: ntripuser=%s; Path=/admin; SameSite=Lax", decoded_user);
+              sock_write_line (con->sock, "Location: /admin");
+              sock_write_line (con->sock, "Content-Type: text/html\r\n");
+              sock_write_line (con->sock, "<html><body><a href=\"/admin\">Continue</a></body></html>");
               write_log (LOG_DEFAULT, "DEBUG LOGIN: redirect written, cleaning up");
               nfree(encoded);
               nfree(decoded_user);
