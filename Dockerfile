@@ -7,7 +7,7 @@ COPY ntripcaster /ntripcaster
 
 WORKDIR /ntripcaster
 
-RUN find . -type f \( -name "*.ac" -o -name "*.am" -o -name "*.in" -o -name "configure*" -o -name "Makefile*" -o -name "*.c" -o -name "*.h" -o -name "*.sh" -o -name "casterwatch" -o -name "ntripcaster" -o -name "*.conf*" -o -name "*.aut*" -o -name "*.dat*" \) -exec dos2unix {} + 2>/dev/null || true
+RUN find . -type f \( -name "*.ac" -o -name "*.am" -o -name "*.in" -o -name "configure*" -o -name "Makefile*" -o -name "*.c" -o -name "*.h" -o -name "*.sh" -o -name "casterwatch" -o -name "ntripcaster" -o -name "*.conf*" -o -name "*.aut*" -o -name "*.dat*" -o -name "*.html" -o -name "*.json" \) -exec dos2unix -r {} + 2>/dev/null || true
 
 RUN autoreconf -fiv && ./configure && make && make install
 

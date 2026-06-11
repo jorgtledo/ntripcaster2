@@ -42,9 +42,12 @@
 
       * { box-sizing: border-box; }
 
-      body {
+      html, body {
         margin: 0;
         padding: 0;
+      }
+
+      body {
         font-family: var(--pico-font-family);
         background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
         min-height: 100vh;
@@ -119,6 +122,12 @@
         border-radius: 50%;
         animation: pulse 2s infinite;
       }
+      .admin-user {
+        color: #94a3b8;
+        font-size: 0.82rem;
+        margin-left: 0.3rem;
+      }
+      .admin-user:empty { display: none; }
       @keyframes pulse {
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.5; transform: scale(1.3); }
@@ -802,5 +811,20 @@
 
       // Expose for external use
       window.NtripI18n = { setLanguage: setLanguage, getLanguage: getLanguage, TRANSLATIONS: TRANSLATIONS };
+    })();
+
+    /* Show logged-in username from cookie */
+    (function() {
+      function showUser() {
+        var m = document.cookie.match(/(?:^|;\s*)ntripuser=([^;]+)/);
+        if (m) {
+          var el = document.getElementById('adminUser');
+          if (el) el.textContent = decodeURIComponent(m[1]);
+        }
+      }
+      if (document.readyState === 'loading')
+        document.addEventListener('DOMContentLoaded', showUser);
+      else
+        showUser();
     })();
     </script>
